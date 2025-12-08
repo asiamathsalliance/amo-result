@@ -799,11 +799,16 @@ dobInput::-webkit-datetime-edit {
   z-index: 1;
 }
 
+.amo-image {
+    width: 300px; /* bigger size */
+    height: auto; /* keep aspect ratio */
+}
+
 /* Logo and navigation container */
 .top-bar {
   position: absolute;
   top: 20px;
-  left: 55px;
+  left: 65px;
   display: flex;
   align-items: center;
   gap: 40px;
@@ -1201,7 +1206,7 @@ form select:focus {
 .home-content {
     float: left;
     color: black !important;
-    text-align: left;
+    text-align: justify;
     margin-top: 0%;
     margin-left: 8%;
     margin-right: 10.5%;
@@ -1327,7 +1332,7 @@ section.visible {
 }
 
 .amc-text {
-    text-align: left;           /* text left-aligned */
+    text-align: justify;
     width: auto;                /* expands naturally */
     margin-top: 0%;
     margin-left: 5%;

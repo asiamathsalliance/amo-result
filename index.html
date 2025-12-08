@@ -34,13 +34,14 @@
 <body>
     <div class="top-bar">
         <a href="https://asiamathsalliance.com/amo-asia-mathematics-olympics-by-japan" target="_blank">
-            <img src="logo.png" alt="Logo" class="top-logo">
+            <img src="logo.png" alt="Logo" style="width:100px; height:auto;" class="top-logo">
         </a>
         <div class="top-texts">
             <span class="nav-item active" data-target="homeSection">Home</span>
             <span class="nav-item" data-target="amcSection">AMO Finals</span>
             <span class="nav-item contact-nav" onclick="document.getElementById('enquiryModal').style.display='block'">Contact Us</span>
         </div>
+
     </div>
 
 
@@ -72,15 +73,22 @@
         
 
         <div class="amc-content">
-            <div class="amc-text">
-                <h1>AMO 2025 Finals</h1>
-                <p class="amc-description">
-                    Congratulations to all winners of the AMO Preliminary Rounds!
-Your achievement reflects your dedication and strong mathematical ability. We are pleased to announce that Gold and Silver Award recipients will be invited to compete in the Asia Mathematics Olympiad Finals 2025, held in Tokyo, Japan from 6–8 December 2025. This is an exciting opportunity to represent your country on an international stage and celebrate excellence in mathematics.
-                </p>
-                <p class="amc-dates">
-                    Please see below to view your results in the AMO Finals 2025! <br>
-                </p>
+            <div class="amc-text" style="display: flex; align-items: flex-start; gap: 20px;">
+                <div class="text-block">
+                    <h1>AMO 2025 Finals</h1>
+                    <p class="amc-description">
+                        Congratulations to all winners of the AMO Preliminary Rounds!
+                        Your achievement reflects your dedication and strong mathematical ability. We are pleased to announce that Gold and Silver Award recipients will be invited to compete in the Asia Mathematics Olympiad Finals 2025, held in Japan from 6–8 December 2025. This is an exciting opportunity to represent your country on an international stage and celebrate excellence in mathematics.
+                    </p>
+                    <p class="amc-dates">
+                        Please see below to view your results in the AMO Finals 2025! <br>
+                    </p>
+                </div>
+
+                <!-- Image Section -->
+                <div class="image-block">
+                    <img src="figure.png" alt="AMO Image" style="height:auto;" class="amo-image">
+                </div>
             </div>
 
             <div class="button-container">
@@ -117,11 +125,10 @@ Your achievement reflects your dedication and strong mathematical ability. We ar
                     <label for="enquiryCategory">Which category did you participate in?</label>
                     <select id="enquiryCategory" required>
                         <option value="" disabled selected hidden>Select your category</option>
-                        <option value="AMC 10A">AMC 10A</option>
-                        <option value="AMC 10B">AMC 10B</option>
-                        <option value="AMC 12A">AMC 12A</option>
-                        <option value="AMC 12B">AMC 12B</option>
-                        <option value="AMC 12B Resit">AMC 12B Resit</option>
+                        <option value="AMO Normal Kidbee">AMO Normal Kidbee</option>
+                        <option value="AMO Open Kidbee">AMO Open Kidbee</option>
+                        <option value="AMO Normal Senior">AMO Normal Senior</option>
+                        <option value="AMO Open Senior">AMO Open Senior</option>
                     </select>
                     
 

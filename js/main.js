@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "AMC 12B": 1188.5
     };
 
-    let tempFirstName, tempLastName, tempFullName, tempEmail, tempDob, tempCategory, tempResult, tempCertificate;
+    let tempFirstName, tempLastName, tempFullName, tempEmail, tempDob, tempCategory, tempResult, tempCertificate, tempMedal;
     function resetTempVariables() {
         tempFirstName = null;
         tempLastName = null;
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tempCategory = null;
         tempResult = null;
         tempCertificate = null;
+        tempMedal = null;
     }
 
     const loadingOverlay2 = document.getElementById('loadingOverlay2');
@@ -159,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 tempCategory     = student.category;
                 tempResult       = student.result;
                 tempCertificate  = student.certificate;
+                tempMedal        = student.tempMedal;
             } else {
                 resetTempVariables();
                 return null;
@@ -432,8 +434,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const scoreText = document.getElementById('resultText');
         const congratulationMessage = document.getElementById('resultCongratulation');
 
-        congratulationMessage.textContent = 'Congratulations for completing AMC!';
-        scoreText.textContent = tempResult + ' / 150';
+        
+        if(tempMedal === 'Gold') {
+            congratulationMessage.textContent = 'Congratulation for achieving Gold!';
+
+        } else if (tempMedal === 'Silver') {
+            congratulationMessage.textContent = 'Congratulation for achieving Silver!';
+
+        } else if (tempMedal === 'Bronze') {
+            congratulationMessage.textContent = 'Congratulation for achieving Bronze';
+
+        } else {
+            congratulationMessage.textContent = 'Congratulation for writing AMO Finals.';
+        }
+
+        scoreText = tempResult + ' / 100';
 
         const passed = false;
         if(tempFirstName === "" || tempLastName === "") {
@@ -464,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
             
         } else {
-            messageText.textContent = 'Category: ' + tempCategory + ' 2025';
+            messageText.textContent = 'Category: ' + tempCategory;
             setTimeout(() => {
                 confetti({
                     particleCount: 250,
