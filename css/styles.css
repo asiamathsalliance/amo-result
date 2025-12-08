@@ -1,0 +1,1378 @@
+* {
+    font-family:Arial, Helvetica, sans-serif !important;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    background-image: url("background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover
+}
+
+body {
+    position: relative;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;           
+}
+
+form input,
+form textarea,
+form select,
+.modal input,
+.modal textarea,
+.modal select {
+    border-radius: 3px !important; /* force it */
+}
+
+
+
+
+
+body::before {
+  content: "";                  /* required for pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: -1;                  /* behind content */
+}
+
+#button1 {
+  box-shadow: 0px 6px 12px rgba(93, 158, 232, 0.533);
+  width: 200px;
+  padding: 22px 26px;
+  font-size: 20px !important;
+}
+
+#button2 {
+  box-shadow: 0px 6px 12px rgba(93, 158, 232, 0.533);
+  width: 280px;
+  padding: 22px 26px;
+  font-size: 20px !important;
+}
+.top-logo {
+    height: 50px;        /* adjust as needed */
+    margin-right: 20px;  /* space between logo and nav items */
+}
+
+
+.overlay {
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  position: absolute;   /* lets you move it anywhere */
+  top: 20px;            /* distance from top of the page */
+  left: 50%;            /* center horizontally */
+  transform: translateX(-50%); /* truly centers it */
+  width: 200px;         /* adjust size */
+  height: auto;         /* maintain aspect ratio */
+  z-index: 10;          /* keep it above background */
+}
+
+.button-container {
+  background-color: rgba(0, 0, 0, 0); /* semi-transparent dark rectangle */
+  border-radius: 7px;
+  width: 100%; 
+  display: flex;
+  flex-direction: row; /* buttons side by side */
+  gap: 80px; /* space between buttons */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0);
+  z-index: 5;
+}
+
+/* Button style */
+button {
+  background-color: #7abaf5;
+  color: black;
+  border: none;
+  padding: 20px 40px;
+  border-radius: 6px;
+  font-size: 24px;
+  cursor: pointer;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  transition: background-color 0.4s ease, transform 0.3s ease;
+}
+
+
+button:hover {
+  background-color: #5298cd;
+  transform: scale(1.1);
+}
+
+
+
+.modal {
+  display: none; /* hide initially */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.25); /* dark semi-transparent overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999 !important;
+}
+
+/* Modal content */
+.modal-content {
+  background-color: white;
+  position: relative;
+  padding: 40px 45px;
+  border-radius: 5px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18px;
+  min-width: 500px;
+  max-width: 90%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  
+  /* New: centers and spaces content properly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+
+
+/* Inputs and dropdowns */
+.modal-content input{
+  width: 85%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: Verdana, sans-serif;
+}
+.modal-content select {
+  width: 85%;
+  padding: 10px 45px 10px 12px;   /* extra room on right for arrow */
+  font-size: 16px;
+  border-radius: 5px;
+  color: #999;
+  border: 1px solid #ccc;
+  font-family: Verdana, sans-serif;
+  background-color: white;
+
+  /* remove system arrow */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* bigger custom arrow */
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2020%2012'%3E%3Cpath%20fill='%23666'%20d='M0%200l10%2012l10-12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;   /* wider arrow */
+}
+.modal-content select option {
+  color: #000; /* all options are black in dropdown */
+}
+
+/* Buttons group */
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.modal-buttons button {
+  padding: 10px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal-buttons button:hover {
+  background-color: #b3b3b3;
+}
+
+.modal-content select:hover {
+  border-color: #999;
+  cursor: pointer;
+}
+
+#submitEmail, #closeBox {
+  font-size: 16px;
+}
+
+#errorModal .modal-content {
+  font-size: 14px;
+}
+
+
+#submitEmail {
+  transition: background-color 0.4s ease, transform 0.3s ease;
+  background-color: #333;
+  
+  color: white;
+}
+#submitEmail:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+#closeBox {
+  transition: background-color 0.4s ease, transform 0.3s ease;
+  background-color: #333;
+  color: white;
+}
+#closeBox:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+#submitCertEmail {
+  transition: background-color 0.4s ease, transform 0.3s ease;
+  background-color: #333;
+  color: white;
+}
+#submitCertEmail:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+#closeCert {
+  transition: background-color 0.4s ease, transform 0.3s ease;
+  background-color: #333;
+  color: white;
+}
+
+#closeCert:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+#overlayText {
+  font-size: 30px;
+}
+
+
+#closeResult {
+  padding: 15px 25px;
+  font-size: 25px;
+}
+
+.modal-buttons button {
+  padding: 10px 25px;
+  font-size: 18px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ccc;
+  color: black;
+}
+
+
+input::placeholder {
+    font-size: 16px;
+    font-weight: 500;
+    color: #999; /* gray placeholder color */
+}
+
+.loading-overlay {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#loadingOverlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25); /* start transparent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100000 !important;
+}
+
+
+#loadingOverlay2.active {
+    opacity: 1;
+}
+
+#loadingOverlay3 {
+  background-color: rgba(0,0,0,0.25); /* darker background */
+}
+
+#loadingOverlay4 {
+  background-color: rgba(0,0,0,0.25); /* darker background */
+}
+
+.loading-overlay.active {
+  display: flex; /* show when active */
+}
+
+.spinner {
+  border: 4px solid #ededed;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-left-color: #ff9100;
+  animation: spin 1.2s ease-in-out infinite;
+  z-index: 10001 !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+input {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 16px;
+  color: black;
+  padding: 10px;
+  border: 0px solid #ccc;
+}
+
+
+
+
+/* Space between label and input */
+.input-group {
+    width: 100%;
+    text-align: left;
+    margin-top: 3px;        /* slightly more separation */
+}
+
+
+#categorySelect {
+    border-radius: 0px;   /* change to 0 if you want perfectly square */
+}
+
+#categorySelect input::placeholder {
+     font-size: 16px;
+     color: #999
+}
+
+#countrySelect input::placeholder {
+     font-size: 16px;
+     color: #999
+}
+
+#enquiryCategory input::placeholder {
+    color: #999;
+}
+
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="date"]::placeholder {
+    font-size: 16px;
+    color: #999; /* optional: make placeholder slightly gray */
+}
+
+
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    font-size: 16px !important;
+    color: #999; /* optional: slightly lighter for better UX */
+}
+
+/* Label styling */
+.input-group label {
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 6px;     /* more space above input */
+    font-size: 16px !important;
+    font-weight: 400;        /* unbold */
+    color: #000000;   
+}
+
+#headerMessage {
+    font-size: 28px !important;
+    margin-top: 10px;
+    margin-bottom: 24px;
+}
+
+
+/* Input + Select styling */
+#categorySelect, #countrySelect, #dobInput, #emailInput, #firstNameInput, #lastNameInput {
+    height: 45px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    font-family: inherit;
+    box-sizing: border-box;
+    margin-bottom: 3px;
+}
+
+
+/* Buttons moved downward */
+.modal-buttons {
+    margin-top: 20px;        /* more space between inputs and buttons */
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+#emailBox .modal-buttons {
+  margin-top: 10px !important;
+}
+
+.name-row {
+    display: flex;
+    gap: 7px !important;
+    align-items: flex-start;
+}
+
+
+
+.name-field input, .dob-field input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 6px 8px;
+    border-radius: 0px;
+    border: 1px solid #ccc;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 6px 8px;
+    border-radius: 0px;
+    border: 0px solid #ccc;
+}
+
+input:focus {
+    box-shadow: none;
+}
+
+.name-field, .dob-field {
+    flex: 1; /* Each box takes equal width */
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+#certBox .modal-content {
+    width: 590px;          /* wider box */
+    padding: 30px 40px;
+    min-height: 463px; 
+    box-sizing: border-box;
+    flex-direction: column; /* stack children vertically */
+    align-items: flex-start;
+}
+
+#certBox h2 {
+    align-self: center; /* centers only the heading */
+    margin-top: 33px;
+    margin-bottom: 23px;
+}
+
+#certBox .modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    margin-top: 35px;
+}
+/* Label styling */
+#certBox label {
+    display: block;
+    text-align: left !important;
+    margin-bottom: 10px;    /* smaller space below label */
+    font-weight: normal;   /* unbold */
+    font-size: 16px;
+    color: #000;
+}
+
+/* Input / Select styling */
+#certBox input,
+#certBox select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 0px;     /* square-ish */
+    box-sizing: border-box;          /* remove extra top margin */
+    font-family: inherit;
+}
+#certBox .input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    align-items: center; /* centers the input/select */
+}
+
+#certBox .input-group input,
+#certBox .input-group select {
+    width: 98%;   /* smaller input box */
+    padding: 10px;
+    font-size: 16px;   /* smaller text inside input */
+    box-sizing: border-box;
+}
+
+#certBox .input-group label {
+    width: 98%;        /* same width as input */
+    margin-bottom: 10px;
+    text-align: left;  /* label text sticks to left */
+}
+
+
+
+
+
+
+
+
+/* Placeholder text */
+input::placeholder {
+  font-size: 14px;
+  color: #999;
+}
+
+#emailBox .modal-content {
+  z-index: 9999 !important;
+  width: 100%;          /* wider modal */
+  max-width: 350px;    /* optional max size */
+}
+
+#categorySelect option[value=""] {
+  color: #999; /* placeholder light gray */
+}
+
+#countrySelect option[value=""] {
+  color: #999; /* placeholder light gray */
+}
+
+#enquiryCategory {
+  color: #999;
+}
+
+#enquiryCategory:valid {
+  color: #000;
+}
+
+#dobInput {
+    color: #999; /* placeholder gray initially */
+    font-size: 14px;
+}
+#certBox select {
+    color: #999; /* placeholder gray initially */
+}
+#certBox select:valid {
+    color: #000;
+}
+
+
+
+dobInput::-webkit-datetime-edit {
+    color: #999; /* placeholder gray initially */
+}
+
+#dobInput:valid {
+    color: #000;
+}
+
+
+#errorModal .modal-content {
+  width: 26.5%;          /* can adjust width */
+  max-width: 400px;
+  min-width: 230px;
+  padding: 30px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0);
+  font-family: Verdana, Geneva, sans-serif;
+  background-color: #ffffff;  /* light red for error */           /* dark red text */
+  position: relative;          /* for future X button */
+}
+
+/* Error text */
+#errorText {
+  text-align: center;
+  font-size: 18px;
+}
+.close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: #333;
+  transform: scale(1.2);
+}
+
+.error-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.score-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px; /* space below header/message */
+}
+
+#resultText {
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+#resultCongratulation {
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 8px; /* close to the score */
+}
+
+
+
+.close-result {
+  position: absolute;
+  top: 0.45em;       /* relative to font-size of parent */
+  right: 0.8em;     /* relative to font-size of parent */
+  font-size: 1.65em; /* scales proportionally */
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+  transform: transform 1s ease;
+}
+
+.close-result:hover {
+  color: #333;
+  transform: scale(1.1);
+}
+
+
+
+
+
+#resultHeader {
+  font-size: 30px;
+  color: #000000;
+  margin-top: 38px;
+}
+
+
+/* Message (congratulations or not) */
+#resultMessage {
+  font-size: 22px;
+  font-weight: 500;
+  margin-top: 5px;
+  color: #000000; 
+}
+
+#resultText {
+  letter-spacing: 1px;
+  margin-top: 38px;
+  margin-bottom: 12px;
+}
+
+#resultName {
+  font-size: 34px;
+  color: #000000;
+  margin-top: 30px;   /* small space below the score */
+  margin-bottom: 20px; /* closer to category */
+  font-weight: bold;
+
+}
+
+#resultInfo {
+  gap: 150px;
+}
+
+#resultCongratulation {
+  font-size: 22px;
+  color: #000000;
+  margin-top: 0;      /* remove default top margin */
+  margin-bottom: 10px;
+}
+
+
+#resultBox .modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centers vertically */
+  align-items: center;      /* centers horizontally */
+  height: 450px;            /* adjust as you wish */
+  text-align: center;
+  padding: 40px;
+  min-width: 450px;
+  z-index: 5 !important;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#downloadLink a {
+    color: #007BFF;        /* normal link color */
+    text-decoration: underline; /* remove underline */
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+#downloadLink a:hover {
+    color: #0056b3;        /* darker shade on hover */
+    text-decoration: underline; /* optional underline */
+    transform: scale(1.04);
+}
+
+
+#errorText a {
+  color: #007BFF;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline-block;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+#errorText a:hover {
+  color: #0056b3;
+  transform: scale(1.04);
+}
+
+
+/* Top gradient background */
+.top-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+  z-index: 1;
+}
+
+/* Logo and navigation container */
+.top-bar {
+  position: absolute;
+  top: 20px;
+  left: 55px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  z-index: 2;
+}
+
+/* Logo styling */
+.top-logo {
+  margin-top: 18px;
+  height: 55px;
+  width: auto;
+}
+
+/* Navigation text styling */
+.top-texts {
+  display: flex;
+  left: 30px;
+  margin-top: 15px;
+  gap: 50px;
+}
+
+.nav-item {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+  display: inline-block;
+  color: black;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover {
+  transform: scale(1.15); /* increase size by 10% */
+  opacity: 0.9; /* slightly fade for effect */
+}
+
+
+
+
+/* ENQUIRY MODAL DON'T TOUCH ! */
+#enquiryModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow:  rgba(0,0,0,0.25); /* visible shadow */
+  justify-content: center;
+  align-items: flex-start; 
+  z-index: 9999 ;
+}
+
+#enquiryModal .modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -63%);
+
+  max-width: 550px;          /* limit width */
+  max-height: 85vh;
+  margin: 100px auto;        /* center vertically */
+  padding: 30px;
+  
+  border-radius: 10px;
+  box-shadow: rgba(0,0,0,0.25);
+  background-color: white;
+  margin: 80px auto;
+}
+
+#enquiryModal h2 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  
+}
+
+#enquiryModal .modal-content input,
+#enquiryModal .modal-content select,
+#enquiryModal .modal-content textarea {
+  display: block;               /* each input is block-level */
+  width: 500px;
+  margin: 0px auto 20px auto;  /* center horizontally, with spacing top/bottom */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 15px;
+  box-sizing: border-box;       /* includes padding in width */
+  text-align: left !important;
+}
+
+#enquiryModal .modal-content textarea {
+  margin-bottom: 30px !important;
+}
+
+#enquiryModal .modal-content label {
+  display: block;            /* each label on its own line */
+  width: 500px;              /* match the input field width */
+  margin: 0 auto 5px auto;   /* center horizontally with a small gap below */
+  font-weight: normal;         /* optional: make it stand out */
+  text-align: left;          /* align text to left edge of the label/input */
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  font-size: 14px;       /* change to whatever size you want */
+  color: #999;           /* optional: change color */
+  font-weight: normal;   /* optional */
+  font-family: Arial, sans-serif; /* optional */
+}
+
+.enquiry-subtext {
+    font-size: 15px;
+    color: #000000;        /* soft dark grey */
+    margin-top: -10px;  /* pull slightly closer to header */
+    margin-bottom: 10px;
+    text-align: center;   /* align with form labels */
+    font-style: italic;
+}
+
+#button1, #button2 {
+  font-weight: 600;
+  outline: 1px solid rgba(136, 170, 242, 0.7);
+}
+
+
+
+#enquiryModal .modal-content button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#enquiryModal .modal-content button:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+/* Close button for enquiry modal */
+#enquiryModal .close-modal {
+  position: absolute;
+  top: 0.45em;       /* relative to font-size of parent */
+  right: 0.8em;     /* relative to font-size of parent */
+  font-size: 1.65em; /* scales proportionally */
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+
+
+
+#enquiryModal #enquiryMessage {
+  height: auto;           /* keeps previous height */
+  margin-bottom: 35px;     /* increase space to submit button */
+}
+
+#enquiryMessage::placeholder {
+    font-size: 16px;
+    color: #999; /* gray placeholder color */
+}
+form input,
+form textarea,
+form select {
+    margin: 0;
+    border-radius: 3px;
+    border: 1px solid #ccc;          /* default light border */
+    padding: 8px 12px;
+    outline: none;                 /* remove normal outline */
+    box-shadow: none;               
+    background-color: #fff;
+    box-sizing: border-box;          /* ensure border doesn't affect size */
+    transition: border-color 0.2s ease;
+    -webkit-appearance: none;        /* remove browser inner styling (Chrome/Safari) */
+    -moz-appearance: none;           /* remove Firefox styling */
+    appearance: none;                /* standard */
+}
+
+#cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 12px; height: 12px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, background 0.2s ease;
+    z-index: 99999;
+}
+
+#enquiryModal textarea {
+  resize: none;
+}
+/* Hover & Focus: subtle dark outline */
+form input:hover,
+form textarea:hover,
+form select:hover,
+form input:focus,
+form textarea:focus,
+form select:focus { 
+    border: 1px solid #333 !important;
+    outline: none !important;
+    
+}
+
+#emailBox input,
+#emailBox select,
+#emailBox textarea {
+  margin: 0;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease; /* smooth hover/focus */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#emailBox input:hover,
+#emailBox input:focus,
+#emailBox select:hover,
+#emailBox select:focus {
+    border: 1px solid #333 !important;
+    outline: none !important;
+}
+
+#emailBox {
+  z-index:9998 !important;
+}
+
+
+
+
+
+
+
+
+#enquiryModal .close-modal:hover {
+  color: #333;
+  transform: scale(1.1);
+}
+#enquiryModal .close-modal {
+  color: #999;
+  transform: transform 1s ease;
+}
+
+#enquiryModal .modal-content button {
+  width: 95px;      /* smaller width */
+  padding: 8px 10px; /* smaller height */
+  font-size: 15px;   /* smaller text */
+  margin: 0 auto;    /* center horizontally */
+  display: block;
+}
+
+
+
+
+
+#downloadContainer {
+    width: 350px;          /* width of the rectangle */
+
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+#downloadContainer {
+
+    margin: 0 auto;  /* centers horizontally */
+    text-align: left;    
+    font-family: sans-serif;
+    font-size: 18px;
+    
+}
+
+#downloadOverlay {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    display: none;              /* JS will set this to flex */
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+#downloadBarWrapper {
+    display: flex;
+    flex-direction: column;      /* stack label above bar */
+    align-items: stretch;      /* make bar full width */
+    width: 100%;   
+    gap: 10px;
+}
+
+#downloadLabel {
+    color: white;
+    margin-bottom: 4px;
+    font-weight: bold;
+    text-align: left;
+}
+
+#downloadBarContainer {
+    width: 100%;
+    height: 20px;          /* height of the bar */
+    background-color: #eee;
+    border-radius: 1px;
+    overflow: hidden;
+    position: relative;
+    padding: 2px;                /* outline spacing */
+    box-sizing: border-box;
+}
+
+#downloadBar {
+    width: 0%;
+    height: 100%;
+    background-color: #ff9100;   /* fill color */
+    border-radius: 1px;
+    transition: width 0.2s ease;
+}
+
+.nav-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    position: relative;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* adjust if needed */
+    width: 100%;
+    height: 2px;
+    background-color: #000; /* underline color */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* HOME SECTION CSS DON'T TOUCH */
+
+
+.home-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+  height: 50%; /* full viewport */
+
+  padding: 0 5%;
+
+  color: black;
+}
+
+
+.home-content {
+    float: left;
+    color: black !important;
+    text-align: left;
+    margin-top: 0%;
+    margin-left: 8%;
+    margin-right: 10.5%;
+
+    max-width: 48%;     /* content width relative to viewport */
+}
+
+.home-content h1, .home-content p {
+    color: black;
+}
+
+.home-content h1 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+.home-content p {
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 18px;
+    line-height: 1.5;
+
+}
+.home-divider {
+    width: 50px;              /* short line */
+    height: 3px;              /* thin line */
+    background: #ff9100;        /* color */
+    margin: 10px 0 20px 0;    /* spacing above/below */
+    border-radius: 1px;       /* soften ends */
+    margin-bottom: 30px;
+}
+
+.home-button {
+    display: flex;
+    justify-content: center;   /* center horizontally */
+    align-items: center;
+    position: fixed;
+    top: 45%;
+    right: 13%;
+    max-width: 500px;
+    width: 23%;
+    
+    padding: 22px 32px;               /* replaces px padding */
+    
+    font-size: 1.4rem;             /* responsive text (scales with width) */
+    font-weight: bold;
+
+    height: 85px;                 /* replaces 80px → scales w/ screen height */
+
+    border-radius: 10px;
+    color: black;
+    border: 2px solid #ff9100;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(3px);
+
+    box-shadow: 0px 6px 12px rgba(93, 158, 232, 0.533);
+    
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.home-button:hover {
+    background: #ff9100;
+    color: white;
+    transform: scale(1) !important;
+}
+
+section {
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    position: absolute; /* prevents layout jump when fading */
+    display: block;        /* always block so opacity works */
+    pointer-events: none;   /* cannot click hidden sections */
+    z-index: 0;
+}
+
+section.hidden {
+    opacity: 0;
+    pointer-events: none;  /* prevent interaction while hidden */
+    z-index: 0;            /* behind the visible section */
+}
+
+section.visible {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 1;
+}
+
+
+.nav-item {
+    display: inline-flex;        /* use flex to center content */
+    justify-content: center;     /* horizontally center text inside nav-item */
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding: 0 10px;             /* horizontal spacing between items */
+}
+
+.nav-item.active::after {
+    content: '';
+    bottom: -8px;               /* distance from text */
+    width: 30%;                 /* width of the underline */
+    height: 4px;
+    background-color: #ff9100;
+    border-radius: 2px;
+    left: 50%;                  /* center relative to nav-item */
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    z-index: 0;
+}
+
+#emailBox {
+    position: fixed !important;      /* or absolute if needed */
+    z-index: 1000 !important;        /* higher than 50 */
+}
+
+
+.amc-content {
+    display: flex;
+    flex-direction: column;     /* stack text and buttons vertically */
+    align-items: flex-start;    /* all text stuck to left */
+    padding: 80px 5% 40px 5%;  /* top, right, bottom, left padding */
+    max-width: none;            /* remove centering constraints */
+    color: black !important;
+}
+
+.amc-text {
+    text-align: left;           /* text left-aligned */
+    width: auto;                /* expands naturally */
+    margin-top: 0%;
+    margin-left: 5%;
+}
+
+.amc-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.amc-text h1::after {
+    content: '';
+    display: block;
+    width: 60px;               /* adjust line length */
+    height: 3px;               /* line thickness */
+    background-color: #ff9100; /* orange line */
+    margin-top: 8px;           /* space from header */
+    border-radius: 2px;
+}
+
+
+.amc-text .amc-description, .amc-text .amc-dates {
+    font-size: 1.1rem;
+    margin-top: 25px;
+    font-family: 'Roboto', sans-serif !important;
+    line-height: 1.5;
+    margin-bottom: 0px;
+}
+
+
+
+
+.button-container {
+  width: 100%; 
+    margin-top: 50px !important;
+    display: flex;
+    justify-content: center;       /* horizontal center */
+    align-items: center;
+    gap: 90px;
+}
+
+
+
+
+
+
+

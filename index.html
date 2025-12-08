@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/main.js"></script>
+    <title>AMO Finals Result</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" id="favicon" href="favicon-final.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init({
+            publicKey: "siCnhr_d1sVgXtjyO",
+        });
+        })();
+    </script>
+</head>
+
+
+<body>
+    <div class="top-bar">
+        <a href="https://asiamathsalliance.com/amo-asia-mathematics-olympics-by-japan" target="_blank">
+            <img src="logo.png" alt="Logo" class="top-logo">
+        </a>
+        <div class="top-texts">
+            <span class="nav-item active" data-target="homeSection">Home</span>
+            <span class="nav-item" data-target="amcSection">AMO Finals</span>
+            <span class="nav-item contact-nav" onclick="document.getElementById('enquiryModal').style.display='block'">Contact Us</span>
+        </div>
+    </div>
+
+
+    <!-- HOME SECTION -->
+    <section id="homeSection"  class="visible">
+            <div class="home-content">
+                <h1>
+                    Asia Mathematics<br>
+                    Olympics
+                </h1>
+                <div class="home-divider"></div>
+                <p>
+                    The Asia Mathematics Olympiad (AMO) is an international competition that aims to allow students to reveal and embrace their talent in Mathematics. More than 180,000 students from countries such as Japan, China, Hong Kong and Korea have participated in this competition since 1991.
+                </p>
+
+            </div>
+            <button class="home-button">AMO Finals Result</button>
+
+
+
+    </section>
+
+
+    <!-- AMC 10/12 SECTION -->
+    <section id="amcSection" class="hidden">
+
+        <div id="cursor"></div>
+
+        
+
+        <div class="amc-content">
+            <div class="amc-text">
+                <h1>AMO 2025 Finals</h1>
+                <p class="amc-description">
+                    Congratulations to all winners of the AMO Preliminary Rounds!
+Your achievement reflects your dedication and strong mathematical ability. We are pleased to announce that Gold and Silver Award recipients will be invited to compete in the Asia Mathematics Olympiad Finals 2025, held in Tokyo, Japan from 6–8 December 2025. This is an exciting opportunity to represent your country on an international stage and celebrate excellence in mathematics.
+                </p>
+                <p class="amc-dates">
+                    Please see below to view your results in the AMO Finals 2025! <br>
+                </p>
+            </div>
+
+            <div class="button-container">
+                <button id="button1">View Result</button>
+                <button id="button2">Download Certificate</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="enquiryModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                
+                <h2>Enquiry Form</h2>
+                <p class="enquiry-subtext">Email us at asiamaths@gmail.com or WA: +65 9168 3007.</p>
+                <form id="enquiryForm">
+                    <label for="enquiryName">Full Name:</label>
+                    <input type="text" id="enquiryName" placeholder="Your full name" required>
+
+                    <label for="enquiryEmail">Email Address:</label>
+                    <input type="email" id="enquiryEmail" placeholder="example@email.com" required>
+
+                    <label for="enquiryCategory">Which category did you participate in?</label>
+                    <select id="enquiryCategory" required>
+                        <option value="" disabled selected hidden>Select your category</option>
+                        <option value="AMC 10A">AMC 10A</option>
+                        <option value="AMC 10B">AMC 10B</option>
+                        <option value="AMC 12A">AMC 12A</option>
+                        <option value="AMC 12B">AMC 12B</option>
+                        <option value="AMC 12B Resit">AMC 12B Resit</option>
+                    </select>
+                    
+
+                    <label for="enquiryMessage">Message:</label>
+                    <textarea id="enquiryMessage" rows="4" placeholder="Your message..." required></textarea>
+
+                    <button type="submit" id="enquirySubmit" >Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- RESULT EMAIL box -->
+    <div id="emailBox" class="modal">
+            <div class="modal-content">
+                
+                <h2 id="headerMessage" style="font-size: 24px"></h2>
+
+                <div class="input-group name-row">
+                    <div class="name-field">
+                        <label for="firstNameInput">First Name:</label>
+                        <input type="text" style="font-size: 16px" id="firstNameInput" placeholder="John" required>
+                    </div>
+
+                    <div class="name-field">
+                        <label for="lastNameInput">Last Name:</label>
+                        <input type="text" style="font-size: 16px" id="lastNameInput" placeholder="Smith" required>
+                    </div>
+                    <div class="name-field dob-field" >
+                        <label for="dobInput">Date of Birth:</label>
+                        <input type="date" style="font-size: 16px;" id="dobInput" onkeydown="return false" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="emailInput">Email Address:</label>
+                    <input type="email" id="emailInput" placeholder="example@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="countrySelect">Country:</label>
+                    <select id="countrySelect" style="font-size:16px;" required>
+                        <option value="" disabled selected hidden>Please select a country</option>
+                        <option value="Phillipines">Phillipines</option>
+                        <option value="Malaysia">Malaysia</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Indonesia">Indonesia</option>
+                    </select>
+                </div>
+
+
+                <div class="input-group">
+                    <label for="categorySelect">Category:</label>
+                    <select id="categorySelect" style="font-size:16px;" required>
+                        <option value="" disabled selected hidden>Select your category</option>
+                        <option value="AMO Normal Kidbee">AMO Normal Kidbee</option>
+                        <option value="AMO Open Kidbee">AMO Open Kidbee</option>
+                        <option value="AMO Normal Senior">AMO Normal Senior</option>
+                        <option value="AMO Open Senior">AMO Open Senior</option>
+                    </select>
+                </div>
+
+                <div class="modal-buttons">
+                    <button id="submitEmail">Submit</button>
+                    <button id="closeBox">Cancel</button>
+                </div>
+
+            </div>
+    </div>
+
+    <!-- RESULT /150 box -->
+    <div id="resultBox" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-result">&times;</span>
+                <h2 id="resultHeader">Result</h2>
+                <div id="resultMessage"></div>
+                <div class="score-section">
+                    <p id="resultText" style="font-size: 65px; font-weight: bold; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif"></p>
+                    <div class="resultInfo">
+                        <h2 id="resultName"></h2>
+                        <h2 id="resultCongratulation"></h2>
+                    </div>
+                </div>
+                <p id="downloadLink" style="margin-top: 0px; font-size: 14px;">
+                    <a href="#" id="openCertLink">Download your certificate!</a>
+                </p>
+                
+            </div>
+    </div>
+
+    <!-- LOADING SCREEN FOR DOWNLOAD-->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p id="overlayText"></p>
+        </div>
+
+        <!-- LOADING SCREEN FOR RESULT-->
+        <div id="loadingOverlay2" class="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- LOADING SCREEN FOR RESULT TO CERTIFICATE PAGE-->
+        <div id="loadingOverlay3" class="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- LOADING SCREEN TO OPEN CONTACT US PAGE-->
+        <div id="loadingOverlay4" class="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- PROGRESS BAR FOR DOWNLOAD -->
+        <div id="downloadOverlay">
+            <div id="downloadContainer">
+                <div id="downloadBarWrapper">
+                    <div id="downloadLabel"></div>
+                    <div id="downloadBarContainer">
+                        <div id="downloadBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DON'T TOUCH THIS -->
+        <div id="certBox" class="modal" style="display:none;">
+            <div class="modal-content">
+
+                <h2>Download Your Certificate!</h2>
+
+                <!-- Email input group -->
+                <div class="input-group">
+                    <label for="certEmailInput">Email Address:</label>
+                    <input type="email" id="certEmailInput" placeholder="example@email.com" required>
+                </div>
+
+                <!-- Category input group -->
+                <div class="input-group">
+                    <label for="certCategorySelect">Category:</label>
+                    <select id="certCategorySelect" required>
+                        <option value="" disabled selected hidden>Select your category</option>
+                        <option value="AMO NORMAL KIDBEE">AMO NORMAL KIDBEE</option>
+                        <option value="AMO OPEN KIDBEE">AMO OPEN KIDBEE</option>
+                        <option value="AMO NORMAL SENIOR">AMO NORMAL SENIOR</option>
+                        <option value="AMO OPEN SENIOR">AMO OPEN SENIOR</option>
+                    </select>
+                </div>
+
+                <div class="modal-buttons">
+                    <button id="submitCertEmail">Download</button>
+                    <button id="closeCert">Close</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="errorModal" class="modal">
+            <div class="modal-content error-content">
+                <span id="closeError" class="close">&times;</span>
+                <p id="errorText"></p>
+            </div>
+        </div>
+    
+
+
+</body>
+</html>
