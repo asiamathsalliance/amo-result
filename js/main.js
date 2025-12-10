@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "AMC 12B": 1188.5
     };
 
-    let tempFirstName, tempLastName, tempFullName, tempEmail, tempDob, tempCategory, tempResult, tempCertificate, tempMedal;
+    let tempFirstName, tempLastName, tempFullName, tempEmail, tempDob, tempCategory, tempResult, tempCertificate, tempMedal, tempCountry;
     function resetTempVariables() {
         tempFirstName = null;
         tempLastName = null;
@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tempResult = null;
         tempCertificate = null;
         tempMedal = null;
+        tempCountry = null;
     }
 
     const loadingOverlay2 = document.getElementById('loadingOverlay2');
@@ -136,8 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
     keepBackendAwake();
 
     // FETCH STUDENT INFO FROM BACKEND RENDER
-    async function updateStudentInfo(firstName, lastName, dob, email, category) {
-        const data = { firstName, lastName, dob, email, category};
+    async function updateStudentInfo(firstName, lastName, dob, email, category, country) {
+        const data = { firstName, lastName, dob, email, category, country };
         try {
             const response = await fetchWithTimeout(
                 "https://competition-backend-1aga.onrender.com/check-amo-result",
@@ -160,7 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 tempCategory     = student.category;
                 tempResult       = student.result;
                 tempCertificate  = student.certificate;
-                tempMedal        = student.tempMedal;
+                tempMedal        = student.medal;
+                tempCountry      = student.country;
             } else {
                 resetTempVariables();
                 return null;
@@ -181,8 +183,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const lastName = capitalize(document.getElementById('lastNameInput').value.trim());
             const dob = document.getElementById('dobInput').value;
             const email = document.getElementById('emailInput').value.trim();
+
             const categorySelect = document.getElementById('categorySelect');
             const selectedCategory = categorySelect.value;
+            const countrySelect = document.getElementById('countrySelect');
+            const selectedCountry = countrySelect.value;
+
             if (!firstName) {
                 showSpinner();
                 setTimeout(() => {
@@ -231,7 +237,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     hideSpinnerKeepBackground();
                     loadingOverlay2.style.display = 'none';
                     errorBox.style.display = 'flex';
-                    errorText.textContent = "Please select a category.";
+                    errorText.textContent = "Please select a listed category.";
+                }, 2000);
+                closeErrorBox.addEventListener('click', function() {
+                    errorBox.style.display = 'none';
+                    resetSpinner();
+                });
+                return;
+            }
+            if(!selectedCountry) {
+                showSpinner();
+                setTimeout(() => {
+                    hideSpinnerKeepBackground();
+                    loadingOverlay2.style.display = 'none';
+                    errorBox.style.display = 'flex';
+                    errorText.textContent = "Please select a listed country.";
                 }, 2000);
                 closeErrorBox.addEventListener('click', function() {
                     errorBox.style.display = 'none';
@@ -246,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     resetSpinner();
                     showSpinner();
 
-                    await updateStudentInfo(firstName, lastName, dob, email, selectedCategory);
+                    await updateStudentInfo(firstName, lastName, dob, email, selectedCategory, selectedCountry);
 
                     if(errorText.textContent === "Server not responding. Please try again.") {
                         showSpinner();
@@ -277,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             loadingOverlay2.style.display = 'none';
                             document.getElementById('emailBox').style.display = 'none';
 
-                            showResultModal(tempFirstName, tempLastName, tempResult, tempCategory);
+                            showResultModal();
 
                             categorySelect.selectedIndex = 0;
                             categorySelect.style.color = '#999';
@@ -301,8 +321,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const lastName = capitalize(document.getElementById('lastNameInput').value.trim());
             const dob = document.getElementById('dobInput').value;
             const email = document.getElementById('emailInput').value.trim();
+
             const categorySelect = document.getElementById('categorySelect');
             const selectedCategory = categorySelect.value;
+            const countrySelect = document.getElementById('countrySelect');
+            const selectedCountry = countrySelect.value;
+
             if (!firstName) {
                 showSpinner();
                 setTimeout(() => {
@@ -351,7 +375,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     hideSpinnerKeepBackground();
                     loadingOverlay2.style.display = 'none';
                     errorBox.style.display = 'flex';
-                    errorText.textContent = "Please select a category.";
+                    errorText.textContent = "Please select a listed category.";
+                }, 2000);
+                closeErrorBox.addEventListener('click', function() {
+                    errorBox.style.display = 'none';
+                    resetSpinner();
+                });
+                return;
+            }
+            if(!selectedCountry) {
+                showSpinner();
+                setTimeout(() => {
+                    hideSpinnerKeepBackground();
+                    loadingOverlay2.style.display = 'none';
+                    errorBox.style.display = 'flex';
+                    errorText.textContent = "Please select a listed country.";
                 }, 2000);
                 closeErrorBox.addEventListener('click', function() {
                     errorBox.style.display = 'none';
@@ -366,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     resetSpinner();
                     showSpinner();
 
-                    await updateStudentInfo(firstName, lastName, dob, email, selectedCategory);
+                    await updateStudentInfo(firstName, lastName, dob, email, selectedCategory, selectedCountry);
 
                     if(errorText.textContent === "Server not responding. Please try again.") {
                         showSpinner();
@@ -427,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     // SHOW RESULT / 150 MODAL
-    function showResultModal(tempFirstName, tempLastName, tempResult, tempCategory) {
+    function showResultModal() {
         const modal = document.getElementById('resultBox');
         const name = document.getElementById('resultName');
         const messageText = document.getElementById('resultMessage');
@@ -448,38 +486,14 @@ document.addEventListener('DOMContentLoaded', function() {
             congratulationMessage.textContent = 'Congratulation for writing AMO Finals.';
         }
 
-        scoreText = tempResult + ' / 100';
+        scoreText.textContent = tempResult + ' / 100';
 
-        const passed = false;
         if(tempFirstName === "" || tempLastName === "") {
             name.textContent = capitalizeFullName(tempFullName);
         } else {
             name.textContent = capitalize(tempFirstName) + " " + capitalize(tempLastName);
         }
-
-        if (passed) {
-            messageText.textContent = 'Congratulations for qualifying AIME!';
-            setTimeout(() => {
-                confetti({
-                    particleCount: 300,
-                    spread: 300,
-                    origin: { y: 0.55 },
-                    ticks: 350
-                });
-
-                // Move the canvas above modal
-                const canvas = document.querySelector('canvas');
-                if (canvas) {
-                    canvas.style.position = 'fixed';
-                    canvas.style.top = '0';
-                    canvas.style.left = '0';
-                    canvas.style.zIndex = '10000';  // above modal
-                    canvas.style.pointerEvents = 'none'; // allow clicks through canvas
-                }
-            }, 100);
-            
-        } else {
-            messageText.textContent = 'Category: ' + tempCategory;
+        messageText.textContent = 'Category: ' + tempCategory;
             setTimeout(() => {
                 confetti({
                     particleCount: 250,
@@ -498,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     canvas.style.pointerEvents = 'none'; // allow clicks through canvas
                 }
             }, 100);
-        }   
+ 
         modal.style.display = 'flex';
     };
 
