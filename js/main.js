@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         name.textContent = capitalize(tempFullName);
 
-        messageText.textContent = tempCategory;
+        messageText.textContent = 'Category: ' + tempCategory;
             setTimeout(() => {
                 confetti({
                     particleCount: 250,
