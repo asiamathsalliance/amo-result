@@ -484,16 +484,13 @@ document.addEventListener('DOMContentLoaded', function() {
             congratulationMessage.textContent = 'Congratulation for achieving BRONZE!';
 
         } else {
-            congratulationMessage.textContent = 'Thank you for partiicpating in AMO Finals.';
+            congratulationMessage.textContent = 'Thank you for particpating in AMO Finals.';
         }
 
         scoreText.textContent = tempResult + ' / 100';
 
-        if(tempFirstName === "" || tempLastName === "") {
-            name.textContent = capitalizeFullName(tempFullName);
-        } else {
-            name.textContent = capitalize(tempFirstName) + " " + capitalize(tempLastName);
-        }
+        name.textContent = capitalize(tempFullName);
+
         messageText.textContent = tempCategory;
             setTimeout(() => {
                 confetti({
