@@ -474,16 +474,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
         if(tempMedal === 'Gold') {
-            congratulationMessage.textContent = 'Congratulation for achieving Gold!';
+            congratulationMessage.textContent = 'Congratulation for achieving GOLD!';
 
         } else if (tempMedal === 'Silver') {
-            congratulationMessage.textContent = 'Congratulation for achieving Silver!';
+            congratulationMessage.textContent = 'Congratulation for achieving SILVER!';
 
         } else if (tempMedal === 'Bronze') {
-            congratulationMessage.textContent = 'Congratulation for achieving Bronze';
+            congratulationMessage.textContent = 'Congratulation for achieving BRONZE!';
 
         } else {
-            congratulationMessage.textContent = 'Congratulation for writing AMO Finals.';
+            congratulationMessage.textContent = 'Thank you for partiicpating in AMO Finals.';
         }
 
         scoreText.textContent = tempResult + ' / 100';
@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             name.textContent = capitalize(tempFirstName) + " " + capitalize(tempLastName);
         }
-        messageText.textContent = 'Category: ' + tempCategory;
+        messageText.textContent = tempCategory;
             setTimeout(() => {
                 confetti({
                     particleCount: 250,
