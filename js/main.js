@@ -231,20 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 return;
             }
-            if(!selectedCategory) {
-                showSpinner();
-                setTimeout(() => {
-                    hideSpinnerKeepBackground();
-                    loadingOverlay2.style.display = 'none';
-                    errorBox.style.display = 'flex';
-                    errorText.textContent = "Please select a listed category.";
-                }, 2000);
-                closeErrorBox.addEventListener('click', function() {
-                    errorBox.style.display = 'none';
-                    resetSpinner();
-                });
-                return;
-            }
             if(!selectedCountry) {
                 showSpinner();
                 setTimeout(() => {
@@ -259,6 +245,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 return;
             }
+            if(!selectedCategory) {
+                showSpinner();
+                setTimeout(() => {
+                    hideSpinnerKeepBackground();
+                    loadingOverlay2.style.display = 'none';
+                    errorBox.style.display = 'flex';
+                    errorText.textContent = "Please select a listed category.";
+                }, 2000);
+                closeErrorBox.addEventListener('click', function() {
+                    errorBox.style.display = 'none';
+                    resetSpinner();
+                });
+                return;
+            }
+            
             
             async function showResult() {
                 try {
@@ -369,20 +370,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 return;
             }
-            if(!selectedCategory) {
-                showSpinner();
-                setTimeout(() => {
-                    hideSpinnerKeepBackground();
-                    loadingOverlay2.style.display = 'none';
-                    errorBox.style.display = 'flex';
-                    errorText.textContent = "Please select a listed category.";
-                }, 2000);
-                closeErrorBox.addEventListener('click', function() {
-                    errorBox.style.display = 'none';
-                    resetSpinner();
-                });
-                return;
-            }
             if(!selectedCountry) {
                 showSpinner();
                 setTimeout(() => {
@@ -390,6 +377,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     loadingOverlay2.style.display = 'none';
                     errorBox.style.display = 'flex';
                     errorText.textContent = "Please select a listed country.";
+                }, 2000);
+                closeErrorBox.addEventListener('click', function() {
+                    errorBox.style.display = 'none';
+                    resetSpinner();
+                });
+                return;
+            }
+            if(!selectedCategory) {
+                showSpinner();
+                setTimeout(() => {
+                    hideSpinnerKeepBackground();
+                    loadingOverlay2.style.display = 'none';
+                    errorBox.style.display = 'flex';
+                    errorText.textContent = "Please select a listed category.";
                 }, 2000);
                 closeErrorBox.addEventListener('click', function() {
                     errorBox.style.display = 'none';
