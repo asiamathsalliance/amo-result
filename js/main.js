@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             hideSpinnerKeepBackground();
                             loadingOverlay2.style.display = 'none';
                             errorBox.style.display = 'flex';
-                            errorText.textContent = "Server not responding. Please refresh the page.";
+                            errorText.textContent = "Unable to find contestant.";
                         }, 2000);
                         closeErrorBox.addEventListener('click', function() {
                             errorBox.style.display = 'none';
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             hideSpinnerKeepBackground();
                             loadingOverlay2.style.display = 'none';
                             errorBox.style.display = 'flex';
-                            errorText.textContent = "Server not responding. Please refresh the page.";
+                            errorText.textContent = "Unable to find contestant.";
                         }, 2000);
                         closeErrorBox.addEventListener('click', function() {
                             errorBox.style.display = 'none';
