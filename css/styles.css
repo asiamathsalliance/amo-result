@@ -1,7 +1,3 @@
-* {
-    font-family:Arial, Helvetica, sans-serif !important;
-}
-
 html, body {
     margin: 0;
     padding: 0;
@@ -102,7 +98,7 @@ button {
   border-radius: 6px;
   font-size: 24px;
   cursor: pointer;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
   transition: background-color 0.4s ease, transform 0.3s ease;
 }
 
@@ -215,6 +211,7 @@ button:hover {
 }
 
 #errorModal .modal-content {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   font-size: 14px;
 }
 
@@ -267,6 +264,7 @@ button:hover {
 
 
 #closeResult {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   padding: 15px 25px;
   font-size: 25px;
 }
@@ -439,6 +437,12 @@ input[type="date"]::placeholder {
     margin-bottom: 3px;
 }
 
+select {
+  padding: 10px 45px 20px 12px; /* slightly more bottom padding */
+  line-height: 1.3;
+  box-sizing: border-box;
+}
+
 
 /* Buttons moved downward */
 .modal-buttons {
@@ -449,6 +453,7 @@ input[type="date"]::placeholder {
 }
 
 #emailBox .modal-buttons {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   margin-top: 10px !important;
 }
 
@@ -508,6 +513,7 @@ input:focus {
 }
 
 #certBox .modal-buttons {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
     display: flex;
     justify-content: center;
     gap: 25px;
@@ -571,6 +577,7 @@ input::placeholder {
 }
 
 #emailBox .modal-content {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   z-index: 9999 !important;
   width: 100%;          /* wider modal */
   max-width: 350px;    /* optional max size */
@@ -615,6 +622,7 @@ dobInput::-webkit-datetime-edit {
 
 
 #errorModal .modal-content {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
   width: 26.5%;          /* can adjust width */
   max-width: 400px;
   min-width: 230px;
@@ -622,15 +630,15 @@ dobInput::-webkit-datetime-edit {
   border-radius: 5px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0);
-  font-family: Verdana, Geneva, sans-serif;
   background-color: #ffffff;  /* light red for error */           /* dark red text */
   position: relative;          /* for future X button */
 }
 
 /* Error text */
 #errorText {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   text-align: center;
-  font-size: 18px;
+  font-size: 19px;
 }
 .close {
   position: absolute;
@@ -649,6 +657,7 @@ dobInput::-webkit-datetime-edit {
 }
 
 .error-content {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -668,7 +677,7 @@ dobInput::-webkit-datetime-edit {
 }
 
 #resultText {
-    font-family: 'Roboto' !important;
+    font-family: 'Source Sans 3', system-ui, sans-serif !important;
     font-weight: bold;
     margin: 0;
 }
@@ -676,7 +685,7 @@ dobInput::-webkit-datetime-edit {
 #resultCongratulation {
     font-size: 20px;
     font-weight: 500;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Source Sans 3', system-ui, sans-serif !important;
     color: #000000;
     margin-top: 8px; /* close to the score */
 }
@@ -705,27 +714,31 @@ dobInput::-webkit-datetime-edit {
 
 
 #resultHeader {
+  font-family: 'Montserrat', sans-serif;
   font-size: 30px;
   color: #000000;
-  margin-top: 38px;
+  margin-top: 40px;
 }
 
 
 /* Message (congratulations or not) */
 #resultMessage {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   font-size: 22px;
   font-weight: 500;
   margin-top: 5px;
 }
 
 #resultText {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
   letter-spacing: 1px;
   margin-top: 38px;
   margin-bottom: 12px;
 }
 
 #resultName {
-  font-size: 34px;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 31px;
   color: #000000;
   margin-top: 30px;   /* small space below the score */
   margin-bottom: 20px; /* closer to category */
@@ -734,22 +747,25 @@ dobInput::-webkit-datetime-edit {
 }
 
 #resultInfo {
+  font-family: 'Source Sans 3', system-ui, sans-serif;
   gap: 150px;
 }
 
 #resultCongratulation {
-  font-size: 22px;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 20px;
   margin-top: 0;      /* remove default top margin */
   margin-bottom: 10px;
 }
 
 
 #resultBox .modal-content {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   display: flex;
   flex-direction: column;
   justify-content: center; /* centers vertically */
   align-items: center;      /* centers horizontally */
-  height: 450px;            /* adjust as you wish */
+  height: 60vh;            /* adjust as you wish */
   text-align: center;
   padding: 40px;
   min-width: 450px;
@@ -757,10 +773,10 @@ dobInput::-webkit-datetime-edit {
   border-radius: 5px;
   background-color: white;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #downloadLink a {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
     color: #007BFF;        /* normal link color */
     text-decoration: underline; /* remove underline */
     display: inline-block;
@@ -768,6 +784,7 @@ dobInput::-webkit-datetime-edit {
 }
 
 #downloadLink a:hover {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
     color: #0056b3;        /* darker shade on hover */
     text-decoration: underline; /* optional underline */
     transform: scale(1.04);
@@ -775,6 +792,7 @@ dobInput::-webkit-datetime-edit {
 
 
 #errorText a {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   color: #007BFF;
   text-decoration: underline;
   cursor: pointer;
@@ -783,6 +801,7 @@ dobInput::-webkit-datetime-edit {
 }
 
 #errorText a:hover {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   color: #0056b3;
   transform: scale(1.04);
 }
@@ -831,9 +850,9 @@ dobInput::-webkit-datetime-edit {
 }
 
 .nav-item {
-  font-family: Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 24px;
   display: inline-block;
   color: black;
   cursor: pointer;
@@ -861,6 +880,7 @@ dobInput::-webkit-datetime-edit {
 }
 
 #enquiryModal .modal-content {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -887,6 +907,7 @@ dobInput::-webkit-datetime-edit {
 #enquiryModal .modal-content input,
 #enquiryModal .modal-content select,
 #enquiryModal .modal-content textarea {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   display: block;               /* each input is block-level */
   width: 500px;
   margin: 0px auto 20px auto;  /* center horizontally, with spacing top/bottom */
@@ -899,6 +920,7 @@ dobInput::-webkit-datetime-edit {
 }
 
 #enquiryModal .modal-content textarea {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   margin-bottom: 30px !important;
 }
 
@@ -915,6 +937,7 @@ dobInput::-webkit-datetime-edit {
 input::placeholder,
 select::placeholder,
 textarea::placeholder {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   font-size: 14px;       /* change to whatever size you want */
   color: #999;           /* optional: change color */
   font-weight: normal;   /* optional */
@@ -922,7 +945,8 @@ textarea::placeholder {
 }
 
 .enquiry-subtext {
-    font-size: 15px;
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
+    font-size: 16px;
     color: #000000;        /* soft dark grey */
     margin-top: -10px;  /* pull slightly closer to header */
     margin-bottom: 10px;
@@ -931,6 +955,7 @@ textarea::placeholder {
 }
 
 #button1, #button2 {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   font-weight: 600;
   outline: 1px solid rgba(136, 170, 242, 0.7);
 }
@@ -938,6 +963,7 @@ textarea::placeholder {
 
 
 #enquiryModal .modal-content button {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   background-color: #333;
   color: white;
   border: none;
@@ -1021,6 +1047,7 @@ form select:focus {
 #emailBox input,
 #emailBox select,
 #emailBox textarea {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   margin: 0;
     box-sizing: border-box;
     transition: border-color 0.2s ease; /* smooth hover/focus */
@@ -1033,11 +1060,13 @@ form select:focus {
 #emailBox input:focus,
 #emailBox select:hover,
 #emailBox select:focus {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
     border: 1px solid #333 !important;
     outline: none !important;
 }
 
 #emailBox {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
   z-index:9998 !important;
 }
 
@@ -1219,11 +1248,12 @@ form select:focus {
 }
 
 .home-content h1 {
+  font-family: 'Montserrat', sans-serif;
     font-size: 35px;
     margin-bottom: 10px;
 }
 .home-content p {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
     font-size: 18px;
     line-height: 1.5;
 
@@ -1238,6 +1268,7 @@ form select:focus {
 }
 
 .home-button {
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     justify-content: center;   /* center horizontally */
     align-items: center;
@@ -1245,7 +1276,7 @@ form select:focus {
     top: 45%;
     right: 13%;
     max-width: 500px;
-    width: 23%;
+    width: 21.5%;
     
     padding: 22px 32px;               /* replaces px padding */
     
@@ -1317,6 +1348,7 @@ section.visible {
 }
 
 #emailBox {
+  font-family: 'Source Sans 3', system-ui, sans-serif !important;
     position: fixed !important;      /* or absolute if needed */
     z-index: 1000 !important;        /* higher than 50 */
 }
@@ -1339,9 +1371,14 @@ section.visible {
 }
 
 .amc-text h1 {
+  font-family: 'Montserrat', sans-serif;
     font-size: 2.5rem;
     margin-bottom: 10px;
     position: relative;
+}
+
+.amc-description, .amc-dates {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
 }
 
 .amc-text h1::after {
@@ -1358,7 +1395,6 @@ section.visible {
 .amc-text .amc-description, .amc-text .amc-dates {
     font-size: 1.1rem;
     margin-top: 25px;
-    font-family: 'Roboto', sans-serif !important;
     line-height: 1.5;
     margin-bottom: 0px;
 }
