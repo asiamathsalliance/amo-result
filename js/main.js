@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function keepBackendAwake() {
         setInterval(() => {
-            fetch("https://competition-backend-1aga.onrender.com/health")
+            fetch("https://competition-backend-1-zd68.onrender.com/health")
             .then(res => {
                 if (res.ok) console.log("✅ Backend ping successful");
                 else console.warn("⚠️ Backend ping returned error:", res.status);
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const data = { firstName, lastName, dob, email, category, country };
         try {
             const response = await fetchWithTimeout(
-                "https://competition-backend-1aga.onrender.com/check-amo-result",
+                "https://competition-backend-1-zd68.onrender.com/check-amo-result",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
