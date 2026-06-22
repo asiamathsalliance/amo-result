@@ -75,11 +75,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // CLOSE MODAL BUTTON FOR RESULT/CERTIFICATE
-    closeBox.addEventListener('click', function() {
+    function closeEmailModal() {
         emailBox.style.display = 'none';
         document.getElementById("categorySelect").selectedIndex = 0;
         document.getElementById("categorySelect").style.color = "#999";
-    });
+        document.getElementById("countrySelect").selectedIndex = 0;
+        document.getElementById("countrySelect").style.color = "#999";
+    }
+    closeBox.addEventListener('click', closeEmailModal);
+    const closeEmailModalBtn = document.getElementById('closeEmailModal');
+    if (closeEmailModalBtn) {
+        closeEmailModalBtn.addEventListener('click', closeEmailModal);
+    }
 
     // DOWNLOAD CERTIFICATE BUTTON
     downloadCert.addEventListener('click', function() {
@@ -686,63 +693,91 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 200); // update every 200ms
     }
 
-    
-    /* SWITCHING NAVIGATION BARS */
-    document.querySelectorAll('.nav-item').forEach(item => {
-        if (item.classList.contains('contact-nav')) return;
 
-        item.addEventListener('click', () => {
+    /* SINGLE-PAGE SCROLL NAVIGATION */
+    const navItems = document.querySelectorAll('.nav-item[data-target], .footer-link-btn[data-target]');
+    const topBar = document.querySelector('.top-bar');
+    const navToggle = document.getElementById('navToggle');
+    const navClose = document.getElementById('navClose');
+    const siteNav = document.getElementById('siteNav');
+    const navOverlay = document.getElementById('navOverlay');
+    const contactTriggers = document.querySelectorAll('.contact-nav');
+    const headerOffset = 92;
+
+    function closeMobileNav() {
+        if (!siteNav || !navToggle || !navOverlay) return;
+        siteNav.classList.remove('is-open');
+        navOverlay.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openMobileNav() {
+        if (!siteNav || !navToggle || !navOverlay) return;
+        siteNav.classList.add('is-open');
+        navOverlay.classList.add('is-open');
+        navToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = siteNav && siteNav.classList.contains('is-open');
+            if (isOpen) closeMobileNav();
+            else openMobileNav();
+        });
+    }
+    if (navOverlay) navOverlay.addEventListener('click', closeMobileNav);
+    if (navClose) navClose.addEventListener('click', closeMobileNav);
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (event) => {
+            event.preventDefault();
             const targetId = item.getAttribute('data-target');
             const targetSection = document.getElementById(targetId);
-
-            document.querySelectorAll('section').forEach(sec => {
-                if (sec === targetSection) return;
-                sec.classList.remove('visible'); // fade out others
-            });
-
-            targetSection.classList.add('visible'); // fade in target
+            if (!targetSection) return;
+            closeMobileNav();
+            const scrollToTarget = () => {
+                const y = targetSection.getBoundingClientRect().top + window.scrollY - headerOffset;
+                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+            };
+            requestAnimationFrame(scrollToTarget);
         });
     });
 
-    /* SETTING WHICH NAV-ITEM IS ACTIVE (UNDERLINED) */
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Skip if this is the contact nav
-            if (item.classList.contains('contact-nav')) return;
-
-            // Remove active from all other nav-items (excluding contact)
-            navItems.forEach(nav => {
-                if (!nav.classList.contains('contact-nav')) {
-                    nav.classList.remove('active');
-                }
-            });
-
-            // Add active only to clicked item
-            item.classList.add('active');
+    contactTriggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+            document.getElementById('enquiryModal').style.display = 'flex';
+            closeMobileNav();
         });
     });
 
     const homeButton = document.querySelector('.home-button');
-
-    homeButton.addEventListener('click', () => {
-        const targetId = 'amcSection';
-        const targetSection = document.getElementById(targetId);
-
-        // Hide all other sections
-        document.querySelectorAll('section').forEach(sec => {
-            if (sec !== targetSection) sec.classList.remove('visible');
+    if (homeButton) {
+        homeButton.addEventListener('click', () => {
+            const targetSection = document.getElementById('amcSection');
+            if (targetSection) {
+                const y = targetSection.getBoundingClientRect().top + window.scrollY - headerOffset;
+                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+            }
         });
+    }
 
-        // Show target section
-        targetSection.classList.add('visible');
-
-        // Update nav underline (exclude contact)
-        navItems.forEach(nav => {
-            if (!nav.classList.contains('contact-nav')) nav.classList.remove('active');
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.nav-item[data-target]').forEach((nav) => {
+                nav.classList.toggle('active', nav.getAttribute('data-target') === id);
+            });
         });
-        const amcNav = document.querySelector('.nav-item[data-target="amcSection"]');
-        if (amcNav) amcNav.classList.add('active');
-    });
-    
+    }, { threshold: 0.35, rootMargin: '-10% 0px -45% 0px' });
+    document.querySelectorAll('main section[id]').forEach(sec => sectionObserver.observe(sec));
+
+    if (topBar) {
+        const updateTopBarState = () => {
+            topBar.classList.toggle('scrolled', window.scrollY > 4);
+        };
+        updateTopBarState();
+        window.addEventListener('scroll', updateTopBarState, { passive: true });
+    }
+
 });
