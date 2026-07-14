@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" id="favicon" href="favicon-final.png?v=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -35,6 +35,7 @@
             <span class="nav-item active" data-target="homeSection">Home</span>
             <span class="nav-item" data-target="aboutSection">About</span>
             <span class="nav-item" data-target="amcSection">AMO Finals</span>
+            <span class="nav-item" data-target="multiplicationSection">Multiplication Game</span>
             <button type="button" class="nav-contact contact-nav">Contact Us</button>
         </nav>
     </header>
@@ -99,6 +100,115 @@
                 </div>
             </div>
         </section>
+
+        <!-- MULTIPLICATION SPRINT -->
+        <section id="multiplicationSection" class="section-block reveal-section game-page">
+            <div id="gameStartPanel" class="game-panel is-active game-entry">
+                <div class="game-entry-inner">
+                    <div class="game-entry-text">
+                        <span class="label-chip">Practice</span>
+                        <h1>Multiplication Sprint</h1>
+                        <p>Sharpen your mental math with a fast-paced 60-second challenge. Work through random times-table facts from 1×1 up to 12×10 and build your score with every correct answer.</p>
+                        <ul class="game-entry-features">
+                            <li><strong>60 seconds</strong> per sprint</li>
+                            <li><strong>1–12 × 1–10</strong> question range</li>
+                            <li><strong>Streak bonus</strong> for consecutive correct answers</li>
+                        </ul>
+                    </div>
+                    <div class="game-entry-action">
+                        <div class="game-entry-card">
+                            <p class="game-entry-card-label">Ready to begin?</p>
+                            <h2 class="game-entry-card-title">Start Your Sprint</h2>
+                            <p class="game-entry-card-desc">Answer as many multiplication questions as you can before the timer runs out.</p>
+                            <button type="button" id="gameStartBtn" class="btn-secondary game-entry-btn">Start Sprint</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-shell">
+                <div id="gamePlayPanel" class="game-panel">
+                    <div class="game-stats-bar">
+                        <div class="game-stat">
+                            <span class="game-stat-label">Score</span>
+                            <span class="game-stat-value" id="gameScore">0</span>
+                        </div>
+                        <div class="game-stat">
+                            <span class="game-stat-label">Correct</span>
+                            <span class="game-stat-value" id="gameCorrect">0</span>
+                        </div>
+                        <div class="game-stat">
+                            <span class="game-stat-label">Time</span>
+                            <span class="game-stat-value game-timer-value" id="gameTimer">60</span>
+                        </div>
+                    </div>
+
+                    <div class="game-timer-bar" aria-hidden="true">
+                        <div class="game-timer-fill" id="gameTimerFill"></div>
+                    </div>
+
+                    <div class="game-card-wrap">
+                        <span class="label-chip game-streak-badge" id="gameStreakBadge">0 streak</span>
+                        <div class="game-card" id="gameCard">
+                            <p class="game-question" id="gameQuestion" aria-live="polite">
+                                <span id="gameOperandA">?</span>
+                                <span class="game-times">×</span>
+                                <span id="gameOperandB">?</span>
+                            </p>
+                            <hr class="game-answer-divider">
+                            <input
+                                type="text"
+                                inputmode="numeric"
+                                autocomplete="off"
+                                id="gameAnswerInput"
+                                class="game-answer-input"
+                                placeholder="Your answer"
+                                aria-label="Answer"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="game-keypad" id="gameKeypad">
+                        <button type="button" class="game-key" data-key="1">1</button>
+                        <button type="button" class="game-key" data-key="2">2</button>
+                        <button type="button" class="game-key" data-key="3">3</button>
+                        <button type="button" class="game-key" data-key="4">4</button>
+                        <button type="button" class="game-key" data-key="5">5</button>
+                        <button type="button" class="game-key" data-key="6">6</button>
+                        <button type="button" class="game-key" data-key="7">7</button>
+                        <button type="button" class="game-key" data-key="8">8</button>
+                        <button type="button" class="game-key" data-key="9">9</button>
+                        <button type="button" class="game-key game-key--clear" data-key="clear">⌫</button>
+                        <button type="button" class="game-key" data-key="0">0</button>
+                        <button type="button" class="game-key game-key--submit" data-key="submit">Go</button>
+                    </div>
+                </div>
+
+                <div id="gameResultsPanel" class="game-panel">
+                    <div class="game-results-card">
+                        <h2>Sprint Complete</h2>
+                        <p class="game-results-sub">Multiplication Sprint — 60 seconds</p>
+                        <p class="game-results-score" id="resultsScore">0</p>
+                        <p class="game-results-score-label">Total points</p>
+                        <div class="game-results-grid">
+                            <div class="game-results-stat">
+                                <span class="game-results-stat-label">Correct</span>
+                                <span class="game-results-stat-value" id="resultsCorrect">0</span>
+                            </div>
+                            <div class="game-results-stat">
+                                <span class="game-results-stat-label">Accuracy</span>
+                                <span class="game-results-stat-value" id="resultsAccuracy">0%</span>
+                            </div>
+                            <div class="game-results-stat">
+                                <span class="game-results-stat-label">Best Streak</span>
+                                <span class="game-results-stat-value" id="resultsStreak">0</span>
+                            </div>
+                        </div>
+                        <button type="button" id="gameTryAgainBtn" class="btn-secondary game-start-btn">Try Again</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">
@@ -114,6 +224,7 @@
                         <li><span class="footer-item footer-link-btn" data-target="homeSection">Home</span></li>
                         <li><span class="footer-item footer-link-btn" data-target="aboutSection">About</span></li>
                         <li><span class="footer-item footer-link-btn" data-target="amcSection">AMO Finals</span></li>
+                        <li><span class="footer-item footer-link-btn" data-target="multiplicationSection">Multiplication Game</span></li>
                         <li><button type="button" class="footer-item footer-link-btn contact-nav">Contact Us</button></li>
                     </ul>
                 </div>
@@ -309,5 +420,6 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/multiplication-game.js"></script>
 </body>
 </html>
