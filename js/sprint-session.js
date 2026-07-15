@@ -5,7 +5,7 @@
     var STORAGE_KEY = 'sprintSession';
     var MAX_ALIAS_LEN = 20;
     var ALIAS_PATTERN = /^[a-zA-Z0-9 _-]+$/;
-    var SPRINT_DURATION_SECONDS = 5;
+    var SPRINT_DURATION_SECONDS = 60;
 
     function containsProfanity(text) {
         if (global.SprintAliasModeration) {
