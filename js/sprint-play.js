@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     var session = SprintSession.readSession();
     if (!session) {
-        window.location.replace('/index.html#multiplicationSection');
+        window.location.replace(SiteBase.path('index.html#multiplicationSection'));
         return;
     }
 
@@ -141,19 +141,19 @@ document.addEventListener('DOMContentLoaded', function () {
     if (homeBtn) {
         homeBtn.addEventListener('click', function () {
             SprintSession.clearSession();
-            window.location.href = '/index.html';
+            window.location.href = SiteBase.path('index.html');
         });
     }
 
     if (leaderboardBtn) {
         leaderboardBtn.addEventListener('click', function () {
-            window.location.href = '/leaderboard/';
+            window.location.href = SiteBase.path('leaderboard/');
         });
     }
 
     if (playAgainBtn) {
         playAgainBtn.addEventListener('click', function () {
-            window.location.href = '/index.html#multiplicationSection';
+            window.location.href = SiteBase.path('index.html#multiplicationSection');
         });
     }
 });

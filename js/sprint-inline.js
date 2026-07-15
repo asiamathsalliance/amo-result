@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             startBtn.disabled = true;
             return;
         }
-        window.location.href = '/sprint/play/';
+        window.location.href = SiteBase.path('sprint/play/');
     });
 
     aliasInput.addEventListener('input', updateStartState);
