@@ -13,40 +13,47 @@
 <body>
 
     <header class="top-bar">
-        <a href="../../index.html">
-            <img src="../../logo.png" alt="Asia Math Alliance" class="top-logo">
-        </a>
+        <div class="top-bar-start">
+            <a href="../../index.html">
+                <img src="../../logo.png" alt="Asia Math Alliance" class="top-logo">
+            </a>
 
-        <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
-            <span></span><span></span><span></span>
-        </button>
-
-        <nav id="siteNav" class="top-texts">
+            <nav id="siteNav" class="top-texts">
             <button id="navClose" class="nav-close" aria-label="Close menu">&times;</button>
             <a href="../../index.html" class="nav-item nav-item--link">Home</a>
             <a href="../../index.html#aboutSection" class="nav-item nav-item--link">About</a>
             <a href="../../index.html#amcSection" class="nav-item nav-item--link">AMO Preliminary</a>
             <a href="../../index.html#multiplicationSection" class="nav-item nav-item--link">Multiplication Game</a>
             <a href="../../leaderboard/" class="nav-item nav-item--link">Leaderboard</a>
-            <div class="header-profile-wrap" id="headerProfileWrap" hidden>
-                <button type="button" id="profileMenuBtn" class="profile-menu-btn" aria-label="Account settings" aria-expanded="false" aria-haspopup="true">
-                    <img id="profileAvatarImg" class="profile-menu-avatar" src="" alt="">
-                </button>
-                <div id="profileDropdown" class="profile-dropdown" hidden>
-                    <button type="button" id="profileSettingsBtn" class="profile-dropdown-item">Settings</button>
-                    <button type="button" id="profileSignOutBtn" class="profile-dropdown-item">Sign out</button>
+            </nav>
+        </div>
+
+        <div class="top-bar-right">
+            <div class="top-bar-actions">
+                <div class="header-profile-wrap" id="headerProfileWrap" hidden>
+                    <button type="button" id="profileMenuBtn" class="profile-menu-btn" aria-label="Account settings" aria-expanded="false" aria-haspopup="true">
+                        <img id="profileAvatarImg" class="profile-menu-avatar" alt="" hidden>
+                        <span id="profileAvatarFallback" class="profile-menu-avatar profile-menu-avatar--fallback" hidden aria-hidden="true"></span>
+                    </button>
+                    <div id="profileDropdown" class="profile-dropdown" hidden>
+                        <button type="button" id="profileSettingsBtn" class="profile-dropdown-item">Settings</button>
+                        <button type="button" id="profileSignOutBtn" class="profile-dropdown-item">Sign out</button>
+                    </div>
                 </div>
+                <button type="button" class="nav-contact contact-nav">Contact Us</button>
             </div>
-            <button type="button" class="nav-contact contact-nav">Contact Us</button>
-        </nav>
+            <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </header>
 
     <div id="navOverlay" class="nav-overlay"></div>
 
     <main>
         <section class="section-block game-page sprint-play-page">
-            <div id="sprintCountdown" class="sprint-countdown" aria-live="polite">
-                <p id="sprintCountdownText" class="sprint-countdown-text">3</p>
+            <div id="sprintCountdown" class="sprint-countdown is-hidden" aria-live="polite">
+                <p id="sprintCountdownText" class="sprint-countdown-text"></p>
             </div>
 
             <div id="sprintGameShell" class="game-shell sprint-game-shell">

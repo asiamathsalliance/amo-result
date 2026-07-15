@@ -7,21 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var tableWrap = document.querySelector('.leaderboard-table-wrap');
     if (!tbody) return;
 
-    function formatRelativeTime(iso) {
-        var then = new Date(iso).getTime();
-        if (isNaN(then)) return '—';
-        var diff = Math.max(0, Date.now() - then);
-        var sec = Math.floor(diff / 1000);
-        if (sec < 60) return sec + 's ago';
-        var min = Math.floor(sec / 60);
-        if (min < 60) return min + 'm ago';
-        var hr = Math.floor(min / 60);
-        if (hr < 24) return hr + 'h ago';
-        var day = Math.floor(hr / 24);
-        if (day < 7) return day + 'd ago';
-        return new Date(iso).toLocaleDateString();
-    }
-
     function escapeHtml(str) {
         return String(str)
             .replace(/&/g, '&amp;')
@@ -50,6 +35,19 @@ document.addEventListener('DOMContentLoaded', function () {
         showStatus(message, false);
     }
 
+    function displayValue(value) {
+        var text = String(value || '').trim();
+        return text ? escapeHtml(text) : '<span class="lb-muted">—</span>';
+    }
+
+    function renderAvatar(row) {
+        if (row.avatar_url) {
+            return '<img class="lb-avatar" src="' + escapeHtml(row.avatar_url) + '" alt="" loading="lazy">';
+        }
+        var initial = String(row.alias || '?').charAt(0).toUpperCase();
+        return '<span class="lb-avatar lb-avatar--fallback" aria-hidden="true">' + escapeHtml(initial) + '</span>';
+    }
+
     function renderRows(rows) {
         tbody.innerHTML = '';
         if (tableWrap) tableWrap.classList.remove('is-empty');
@@ -58,12 +56,19 @@ document.addEventListener('DOMContentLoaded', function () {
         rows.forEach(function (row, i) {
             var correct = Number(row.correct_count);
             if (isNaN(correct)) correct = 0;
+
             var tr = document.createElement('tr');
             tr.innerHTML =
-                '<td class="lb-rank">' + (i + 1) + '</td>' +
-                '<td class="lb-alias">' + escapeHtml(row.alias) + '</td>' +
-                '<td class="lb-correct">' + correct + '</td>' +
-                '<td class="lb-when">' + formatRelativeTime(row.created_at) + '</td>';
+                '<td class="lb-player">' +
+                    '<div class="lb-player-inner">' +
+                        '<span class="lb-rank">' + (i + 1) + '</span>' +
+                        renderAvatar(row) +
+                        '<span class="lb-name">' + escapeHtml(row.alias) + '</span>' +
+                    '</div>' +
+                '</td>' +
+                '<td class="lb-score">' + correct + '</td>' +
+                '<td class="lb-grade">' + displayValue(row.grade) + '</td>' +
+                '<td class="lb-country">' + displayValue(row.country) + '</td>';
             tbody.appendChild(tr);
         });
     }

@@ -19,12 +19,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
         window.location.href = SiteBase.path('sprint/play/');
     });
-
-    if (window.location.hash === '#multiplicationSection') {
-        var headerOffset = 92;
-        setTimeout(function () {
-            var y = section.getBoundingClientRect().top + window.scrollY - headerOffset;
-            window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
-        }, 200);
-    }
 });

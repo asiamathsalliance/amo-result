@@ -27,8 +27,14 @@ You do **not** put the service role key in the browser.
 
 | Field | Value |
 |-------|--------|
-| **Authorized JavaScript origins** | `http://localhost:8000`, `https://YOUR-VERCEL-DOMAIN.vercel.app` |
-| **Authorized redirect URIs** | `https://YOUR-PROJECT-REF.supabase.co/auth/v1/callback` |
+| **Authorized JavaScript origins** | `http://localhost:8000`, `http://127.0.0.1:8000`, `https://YOUR-VERCEL-DOMAIN.vercel.app` |
+| **Authorized redirect URIs** | `https://jfabsdvuzdyfwzxfnoem.supabase.co/auth/v1/callback` |
+
+**Critical:** In Google, the redirect URI is **only** the Supabase callback above — **not** `http://localhost:8000/auth/callback.html`. Supabase handles Google, then sends the user back to your app.
+
+**Important:** `localhost` and `127.0.0.1` are different origins to Google. Add whichever address you use in the browser.
+
+OAuth client type must be **Web application** (not Desktop, iOS, or Android).
 
 Copy the **Client ID** and **Client Secret**.
 
@@ -49,8 +55,9 @@ Copy the **Client ID** and **Client Secret**.
 
 | Setting | Example |
 |---------|---------|
-| **Site URL** | `https://YOUR-VERCEL-DOMAIN.vercel.app` |
+| **Site URL** | `http://localhost:8000` (local) or `https://YOUR-VERCEL-DOMAIN.vercel.app` |
 | **Redirect URLs** | `http://localhost:8000/**` |
+| | `http://127.0.0.1:8000/**` |
 | | `https://YOUR-VERCEL-DOMAIN.vercel.app/**` |
 
 The app callback page is: `https://YOUR-DOMAIN/auth/callback.html`
@@ -99,13 +106,31 @@ Only **signed-in** users can insert new scores (RLS).
 
 ## Vercel deployment
 
-1. Connect the GitHub repo to Vercel
-2. Framework: **Other** (static site)
-3. No build command needed (or `echo ok`)
+1. Connect the GitHub repo to [Vercel](https://vercel.com) → **Add New Project** → import `asiamathsalliance/amo-result`
+2. Framework preset: **Other** (static site)
+3. Build command: leave empty (or `echo ok`)
 4. Output directory: `.` (repo root)
-5. Add environment variables only if you inject config at build time; otherwise keep keys in `js/supabase-config.js`
+5. Deploy — your site will be at `https://YOUR-PROJECT.vercel.app` (or a custom domain)
 
-After deploy, update Supabase **Site URL** and **Redirect URLs** to your Vercel domain.
+No Vercel environment variables are required for Supabase if keys stay in `js/supabase-config.js`.
+
+### After deploy — update these 3 places with your Vercel URL
+
+Replace `https://YOUR-VERCEL-DOMAIN.vercel.app` below with your real Vercel URL (e.g. `https://amo-result.vercel.app`).
+
+| Service | Where | What to add |
+|---------|--------|-------------|
+| **Google Cloud** | APIs & Services → Credentials → OAuth 2.0 Client → **Authorized JavaScript origins** | `https://YOUR-VERCEL-DOMAIN.vercel.app` |
+| **Google Cloud** | Same client → **Authorized redirect URIs** | `https://jfabsdvuzdyfwzxfnoem.supabase.co/auth/v1/callback` only (unchanged) |
+| **Supabase** | Authentication → URL Configuration → **Site URL** | `https://YOUR-VERCEL-DOMAIN.vercel.app` |
+| **Supabase** | Authentication → URL Configuration → **Redirect URLs** | `https://YOUR-VERCEL-DOMAIN.vercel.app/**` |
+
+Keep localhost entries in Google origins and Supabase redirect URLs for local dev:
+
+- Google origins: `http://localhost:8000`, `http://127.0.0.1:8000`
+- Supabase redirect URLs: `http://localhost:8000/**`, `http://127.0.0.1:8000/**`
+
+OAuth callback page on your site: `https://YOUR-VERCEL-DOMAIN.vercel.app/auth/callback.html`
 
 ---
 
@@ -125,6 +150,9 @@ AMO Preliminary results, certificates, and other sections do **not** require sig
 
 | Issue | Fix |
 |-------|-----|
+| **"Access blocked: This app's request is invalid"** | Add `https://jfabsdvuzdyfwzxfnoem.supabase.co/auth/v1/callback` to Google **Authorized redirect URIs** (Web application client). Do **not** put localhost in redirect URIs. |
+| **"Not authorized origins"** from Google | Add your exact browser URL to Google **Authorized JavaScript origins** (`http://localhost:8000` and/or `http://127.0.0.1:8000`) |
+| Nav clicks do nothing | Hard-refresh (`Cmd+Shift+R`); nav now uses hash links + `js/home-nav.js` |
 | Redirect loop / 404 after Google | Add Vercel URL to Supabase Redirect URLs |
 | `auth/callback` error | Confirm Google redirect URI is Supabase `/auth/v1/callback` |
 | Score not saving | Run migration `004_multiplication_auth.sql`; user must be signed in |

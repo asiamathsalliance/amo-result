@@ -98,20 +98,82 @@
         }
     }
 
+    async function fetchProfilesByUserIds(userIds) {
+        var unique = [];
+        var seen = {};
+        userIds.forEach(function (id) {
+            if (!id || seen[id]) return;
+            seen[id] = true;
+            unique.push(id);
+        });
+        if (!unique.length) return {};
+
+        var filter = 'id=in.(' + unique.join(',') + ')';
+        var profiles = await rest(
+            'multiplication_profiles?select=id,country,grade,avatar_url,username&' + filter,
+            { method: 'GET' }
+        );
+
+        var map = {};
+        if (Array.isArray(profiles)) {
+            profiles.forEach(function (profile) {
+                map[profile.id] = profile;
+            });
+        }
+        return map;
+    }
+
+    function enrichRowsWithProfiles(rows, profileMap) {
+        return rows.map(function (row) {
+            var profile = row.user_id ? profileMap[row.user_id] : null;
+            return {
+                alias: row.alias,
+                score: row.score,
+                correct_count: row.correct_count,
+                time_taken_seconds: row.time_taken_seconds,
+                mode: row.mode,
+                created_at: row.created_at,
+                user_id: row.user_id,
+                country: profile && profile.country ? profile.country : '',
+                grade: profile && profile.grade ? profile.grade : '',
+                avatar_url: profile && profile.avatar_url ? profile.avatar_url : '',
+            };
+        });
+    }
+
     async function fetchLeaderboard(limit) {
         const fullQuery =
-            'select=alias,score,correct_count,time_taken_seconds,mode,created_at' +
+            'select=alias,score,correct_count,time_taken_seconds,mode,created_at,user_id' +
             '&order=correct_count.desc,score.desc' +
             '&limit=' + String(limit || 50);
         try {
-            return await rest('sprint_leaderboard?' + fullQuery, { method: 'GET' });
+            var rows = await rest('sprint_leaderboard?' + fullQuery, { method: 'GET' });
+            if (!Array.isArray(rows)) return [];
+            var userIds = rows.map(function (row) { return row.user_id; });
+            var profileMap = await fetchProfilesByUserIds(userIds);
+            return enrichRowsWithProfiles(rows, profileMap);
         } catch (err) {
             if (!isMissingColumnError(err)) throw err;
             const legacyQuery =
                 'select=alias,score,time_taken_seconds,mode,created_at' +
                 '&order=score.desc' +
                 '&limit=' + String(limit || 50);
-            return rest('sprint_leaderboard?' + legacyQuery, { method: 'GET' });
+            var legacyRows = await rest('sprint_leaderboard?' + legacyQuery, { method: 'GET' });
+            if (!Array.isArray(legacyRows)) return [];
+            return legacyRows.map(function (row) {
+                return {
+                    alias: row.alias,
+                    score: row.score,
+                    correct_count: row.score,
+                    time_taken_seconds: row.time_taken_seconds,
+                    mode: row.mode,
+                    created_at: row.created_at,
+                    user_id: null,
+                    country: '',
+                    grade: '',
+                    avatar_url: '',
+                };
+            });
         }
     }
 

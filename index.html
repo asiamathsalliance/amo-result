@@ -22,32 +22,39 @@
 <body>
 
     <header class="top-bar">
-        <a href="https://asiamathsalliance.com/amo-asia-mathematics-olympics-by-japan" target="_blank" rel="noopener noreferrer">
-            <img src="logo.png" alt="Asia Math Alliance" class="top-logo">
-        </a>
+        <div class="top-bar-start">
+            <a href="https://asiamathsalliance.com/amo-asia-mathematics-olympics-by-japan" target="_blank" rel="noopener noreferrer">
+                <img src="logo.png" alt="Asia Math Alliance" class="top-logo">
+            </a>
 
-        <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
-            <span></span><span></span><span></span>
-        </button>
-
-        <nav id="siteNav" class="top-texts">
+            <nav id="siteNav" class="top-texts">
             <button id="navClose" class="nav-close" aria-label="Close menu">&times;</button>
-            <span class="nav-item active" data-target="homeSection">Home</span>
-            <span class="nav-item" data-target="aboutSection">About</span>
-            <span class="nav-item" data-target="amcSection">AMO Preliminary</span>
-            <span class="nav-item" data-target="multiplicationSection">Multiplication Game</span>
+            <a href="#homeSection" class="nav-item active" data-target="homeSection">Home</a>
+            <a href="#aboutSection" class="nav-item" data-target="aboutSection">About</a>
+            <a href="#amcSection" class="nav-item" data-target="amcSection">AMO Preliminary</a>
+            <a href="#multiplicationSection" class="nav-item" data-target="multiplicationSection">Multiplication Game</a>
             <a href="leaderboard/" class="nav-item nav-item--link">Leaderboard</a>
-            <div class="header-profile-wrap" id="headerProfileWrap" hidden>
-                <button type="button" id="profileMenuBtn" class="profile-menu-btn" aria-label="Account settings" aria-expanded="false" aria-haspopup="true">
-                    <img id="profileAvatarImg" class="profile-menu-avatar" src="" alt="">
-                </button>
-                <div id="profileDropdown" class="profile-dropdown" hidden>
-                    <button type="button" id="profileSettingsBtn" class="profile-dropdown-item">Settings</button>
-                    <button type="button" id="profileSignOutBtn" class="profile-dropdown-item">Sign out</button>
+            </nav>
+        </div>
+
+        <div class="top-bar-right">
+            <div class="top-bar-actions">
+                <div class="header-profile-wrap" id="headerProfileWrap" hidden>
+                    <button type="button" id="profileMenuBtn" class="profile-menu-btn" aria-label="Account settings" aria-expanded="false" aria-haspopup="true">
+                        <img id="profileAvatarImg" class="profile-menu-avatar" alt="" hidden>
+                        <span id="profileAvatarFallback" class="profile-menu-avatar profile-menu-avatar--fallback" hidden aria-hidden="true"></span>
+                    </button>
+                    <div id="profileDropdown" class="profile-dropdown" hidden>
+                        <button type="button" id="profileSettingsBtn" class="profile-dropdown-item">Settings</button>
+                        <button type="button" id="profileSignOutBtn" class="profile-dropdown-item">Sign out</button>
+                    </div>
                 </div>
+                <button type="button" class="nav-contact contact-nav">Contact Us</button>
             </div>
-            <button type="button" class="nav-contact contact-nav">Contact Us</button>
-        </nav>
+            <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </header>
 
     <div id="navOverlay" class="nav-overlay"></div>
@@ -127,23 +134,19 @@
                         </ul>
                     </div>
                     <div class="game-entry-action">
-                        <div class="game-entry-card">
+                        <div class="game-entry-card" id="gameEntryCard">
                             <p class="game-entry-card-label">Ready to begin?</p>
                             <h2 class="game-entry-card-title">Start Your Sprint</h2>
-                            <p class="game-entry-card-desc">Sign in with Google to save your scores and compete on the leaderboard.</p>
+                            <p class="game-entry-card-subtext" id="gameEntryCardSubtext">Race the clock and see how many multiplication facts you can solve.</p>
 
-                            <div id="sprintAuthSignedOut" class="sprint-auth-panel">
+                            <div class="sprint-auth-actions" id="sprintAuthActions">
                                 <button type="button" id="sprintGoogleSignIn" class="btn-google game-entry-btn">
                                     <span class="btn-google-icon" aria-hidden="true">
                                         <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                     </span>
                                     Sign in with Google
                                 </button>
-                            </div>
-
-                            <div id="sprintAuthSignedIn" class="sprint-auth-panel" hidden>
-                                <p class="sprint-continue-as">Continue as <strong id="sprintContinueAs"></strong></p>
-                                <button type="button" id="gameStartBtn" class="btn-secondary game-entry-btn">Start Sprint</button>
+                                <button type="button" id="gameStartBtn" class="btn-secondary game-entry-btn" disabled>Start Sprint</button>
                             </div>
                         </div>
                     </div>
@@ -163,10 +166,10 @@
                 <div>
                     <p class="footer-heading">Quick links</p>
                     <ul class="footer-list">
-                        <li><span class="footer-item footer-link-btn" data-target="homeSection">Home</span></li>
-                        <li><span class="footer-item footer-link-btn" data-target="aboutSection">About</span></li>
-                        <li><span class="footer-item footer-link-btn" data-target="amcSection">AMO Preliminary</span></li>
-                        <li><span class="footer-item footer-link-btn" data-target="multiplicationSection">Multiplication Game</span></li>
+                        <li><a href="#homeSection" class="footer-item footer-link-btn" data-target="homeSection">Home</a></li>
+                        <li><a href="#aboutSection" class="footer-item footer-link-btn" data-target="aboutSection">About</a></li>
+                        <li><a href="#amcSection" class="footer-item footer-link-btn" data-target="amcSection">AMO Preliminary</a></li>
+                        <li><a href="#multiplicationSection" class="footer-item footer-link-btn" data-target="multiplicationSection">Multiplication Game</a></li>
                         <li><a class="footer-item" href="leaderboard/">Leaderboard</a></li>
                         <li><button type="button" class="footer-item footer-link-btn contact-nav">Contact Us</button></li>
                     </ul>
@@ -354,35 +357,6 @@
         </div>
     </div>
 
-    <!-- Profile settings modal (multiplication game) -->
-    <div id="profileSettingsModal" class="modal">
-        <div class="modal-content profile-settings-modal">
-            <span id="profileSettingsClose" class="close-modal">&times;</span>
-            <h2>Account Settings</h2>
-            <p class="profile-settings-sub">Edit your multiplication game profile.</p>
-
-            <label for="profileSettingsEmail">Email</label>
-            <input type="email" id="profileSettingsEmail" readonly>
-
-            <label for="profileSettingsUsername">Username</label>
-            <input type="text" id="profileSettingsUsername" maxlength="20" placeholder="Leaderboard display name">
-
-            <label for="profileSettingsCountry">Country</label>
-            <select id="profileSettingsCountry"></select>
-
-            <label for="profileSettingsGrade">Grade</label>
-            <select id="profileSettingsGrade"></select>
-
-            <p id="profileSettingsError" class="profile-settings-error" aria-live="polite"></p>
-
-            <div class="modal-buttons">
-                <button type="button" id="profileSettingsSave">Save</button>
-                <button type="button" id="profileSettingsCancel" class="btn-cancel">Cancel</button>
-            </div>
-            <button type="button" id="profileSettingsDelete" class="profile-delete-btn">Delete account</button>
-        </div>
-    </div>
-
     <!-- Error Modal -->
     <div id="errorModal" class="modal">
         <div class="modal-content error-content">
@@ -393,6 +367,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="js/site-base.js"></script>
+    <script src="js/home-nav.js"></script>
     <script src="js/result-confetti.js"></script>
     <script src="js/alias-moderation.js"></script>
     <script src="js/supabase-config.js"></script>

@@ -25,28 +25,78 @@
         var countdownText = opts.countdownText;
         var onComplete = opts.onComplete;
         var steps = ['3', '2', '1', 'Go!'];
+        var stepMs = 850;
+        var fadeMs = 180;
         var index = 0;
+        var cancelled = false;
+        var timerIds = [];
 
-        if (countdownEl) countdownEl.classList.remove('is-hidden');
-
-        function showStep() {
-            countdownText.textContent = steps[index];
-            countdownText.classList.remove('sprint-countdown-pop');
-            void countdownText.offsetWidth;
-            countdownText.classList.add('sprint-countdown-pop');
-
-            index += 1;
-            if (index < steps.length) {
-                setTimeout(showStep, 1000);
-            } else {
-                setTimeout(function () {
-                    if (countdownEl) countdownEl.classList.add('is-hidden');
-                    if (onComplete) onComplete();
-                }, 600);
-            }
+        function clearTimers() {
+            timerIds.forEach(function (id) {
+                clearTimeout(id);
+            });
+            timerIds = [];
         }
 
-        showStep();
+        function schedule(fn, ms) {
+            var id = setTimeout(fn, ms);
+            timerIds.push(id);
+            return id;
+        }
+
+        function finish() {
+            if (cancelled) return;
+            countdownEl.classList.add('is-hidden');
+            countdownText.textContent = '';
+            countdownText.classList.remove('sprint-countdown-pop', 'sprint-countdown-fade');
+            if (onComplete) onComplete();
+        }
+
+        if (!countdownEl || !countdownText) {
+            if (onComplete) onComplete();
+            return { cancel: function () {} };
+        }
+
+        countdownText.textContent = '';
+        countdownText.classList.remove('sprint-countdown-pop', 'sprint-countdown-fade');
+        countdownEl.classList.remove('is-hidden');
+
+        function showStep() {
+            if (cancelled) return;
+
+            if (index >= steps.length) {
+                countdownText.classList.add('sprint-countdown-fade');
+                schedule(finish, fadeMs + 120);
+                return;
+            }
+
+            countdownText.classList.remove('sprint-countdown-pop');
+            countdownText.classList.add('sprint-countdown-fade');
+
+            schedule(function () {
+                if (cancelled) return;
+
+                countdownText.textContent = steps[index];
+                countdownText.classList.remove('sprint-countdown-fade');
+                void countdownText.offsetWidth;
+                countdownText.classList.add('sprint-countdown-pop');
+
+                index += 1;
+                schedule(showStep, stepMs);
+            }, index === 0 ? 100 : fadeMs);
+        }
+
+        schedule(showStep, 80);
+
+        return {
+            cancel: function () {
+                cancelled = true;
+                clearTimers();
+                countdownEl.classList.add('is-hidden');
+                countdownText.textContent = '';
+                countdownText.classList.remove('sprint-countdown-pop', 'sprint-countdown-fade');
+            },
+        };
     }
 
     global.SprintUtils = {

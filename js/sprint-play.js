@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     var gameQuestion = document.getElementById('gameQuestion');
 
     var submitted = false;
+    var countdownControl = null;
     var RESULTS_LOADING_MS = 2000;
 
     var elements = {
@@ -60,7 +61,42 @@ document.addEventListener('DOMContentLoaded', async function () {
         },
     });
 
-    engine.prepareBoard();
+    function resetResultsUI() {
+        if (elements.resultsLoading) elements.resultsLoading.classList.remove('is-hidden');
+        if (elements.resultsContent) {
+            elements.resultsContent.classList.add('is-hidden');
+            elements.resultsContent.classList.remove('results-content--visible');
+        }
+        if (saveStatusEl) {
+            saveStatusEl.textContent = '';
+            saveStatusEl.classList.remove('results-save-status--error');
+        }
+    }
+
+    function beginCountdownAndStart() {
+        if (countdownControl) countdownControl.cancel();
+
+        submitted = false;
+        resetResultsUI();
+        engine.prepareBoard();
+
+        if (gameShell) gameShell.classList.add('is-visible');
+        if (playPanel) playPanel.classList.add('is-active');
+        if (resultsPanel) resultsPanel.classList.remove('is-active');
+
+        countdownControl = SprintUtils.runCountdown({
+            countdownEl: countdownEl,
+            countdownText: countdownText,
+            onComplete: function () {
+                countdownControl = null;
+                engine.startSprint();
+            },
+        });
+
+        setTimeout(function () {
+            SprintUtils.scrollGameIntoView(gameShell);
+        }, 80);
+    }
 
     setTimeout(function () {
         SprintUtils.scrollGameIntoView(gameShell);
@@ -133,13 +169,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }, 120);
     }
 
-    SprintUtils.runCountdown({
-        countdownEl: countdownEl,
-        countdownText: countdownText,
-        onComplete: function () {
-            engine.startSprint();
-        },
-    });
+    beginCountdownAndStart();
 
     var homeBtn = document.getElementById('sprintBackHomeBtn');
     var leaderboardBtn = document.getElementById('sprintViewLeaderboardBtn');
@@ -160,7 +190,19 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (playAgainBtn) {
         playAgainBtn.addEventListener('click', function () {
-            window.location.href = SiteBase.path('index.html#multiplicationSection');
+            var currentProfile = SprintAuth.getProfile();
+            if (!currentProfile) {
+                window.location.href = SiteBase.path('index.html#multiplicationSection');
+                return;
+            }
+
+            var result = SprintSession.createSessionFromProfile(currentProfile);
+            if (!result.ok) {
+                alert(result.error || 'Could not restart sprint.');
+                return;
+            }
+
+            beginCountdownAndStart();
         });
     }
 });
