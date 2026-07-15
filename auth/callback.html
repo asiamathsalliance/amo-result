@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signing in… — AMO</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .auth-callback-page {
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: var(--color-bg);
+        }
+        .auth-callback-card {
+            max-width: 420px;
+            width: 100%;
+            padding: 32px 24px;
+            text-align: center;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-card);
+        }
+        .auth-callback-card p {
+            margin: 0;
+            color: var(--color-text-secondary);
+        }
+        .auth-callback-card p.auth-callback-error {
+            color: #b42318;
+        }
+    </style>
+</head>
+<body>
+    <main class="auth-callback-page">
+        <div class="auth-callback-card">
+            <p id="authCallbackStatus">Completing Google sign-in…</p>
+        </div>
+    </main>
+
+    <script src="../js/site-base.js"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-config.local.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        (async function () {
+            var statusEl = document.getElementById('authCallbackStatus');
+            var params = new URLSearchParams(window.location.search);
+            var next = params.get('next') || SiteBase.path('index.html#multiplicationSection');
+            var code = params.get('code');
+            var authError = params.get('error_description') || params.get('error');
+
+            if (authError) {
+                statusEl.textContent = 'Sign-in failed. Redirecting…';
+                statusEl.classList.add('auth-callback-error');
+                setTimeout(function () {
+                    window.location.replace(SiteBase.path('index.html#multiplicationSection'));
+                }, 1800);
+                return;
+            }
+
+            if (!window.supabase || !window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+                statusEl.textContent = 'Supabase is not configured.';
+                statusEl.classList.add('auth-callback-error');
+                return;
+            }
+
+            var client = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+
+            try {
+                if (code) {
+                    var exchange = await client.auth.exchangeCodeForSession(code);
+                    if (exchange.error) throw exchange.error;
+                } else {
+                    var sessionRes = await client.auth.getSession();
+                    if (sessionRes.error) throw sessionRes.error;
+                    if (!sessionRes.data.session) {
+                        throw new Error('No session returned from Google sign-in.');
+                    }
+                }
+
+                window.location.replace(next);
+            } catch (err) {
+                console.error(err);
+                statusEl.textContent = 'Could not complete sign-in. Redirecting…';
+                statusEl.classList.add('auth-callback-error');
+                setTimeout(function () {
+                    window.location.replace(SiteBase.path('index.html#multiplicationSection'));
+                }, 2000);
+            }
+        })();
+    </script>
+</body>
+</html>

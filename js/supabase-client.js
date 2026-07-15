@@ -1,5 +1,5 @@
 /**
- * Lightweight Supabase REST client for sprint_leaderboard (no SDK required).
+ * Lightweight Supabase REST + authenticated client for sprint_leaderboard.
  */
 (function (global) {
     function isConfigured() {
@@ -15,7 +15,20 @@
 
     function isMissingColumnError(err) {
         var msg = String((err && err.message) || '');
-        return msg.indexOf('correct_count') !== -1;
+        return msg.indexOf('correct_count') !== -1 || msg.indexOf('user_id') !== -1;
+    }
+
+    async function getAuthHeaders() {
+        var token = null;
+        if (global.SprintAuth && SprintAuth.getAccessToken) {
+            token = await SprintAuth.getAccessToken();
+        }
+        return {
+            apikey: global.SUPABASE_ANON_KEY,
+            Authorization: 'Bearer ' + (token || global.SUPABASE_ANON_KEY),
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        };
     }
 
     async function rest(path, options) {
@@ -23,13 +36,11 @@
             throw new Error('Supabase not configured in js/supabase-config.js');
         }
         const url = global.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/' + path;
+        const baseHeaders = await getAuthHeaders();
         const res = await fetch(url, {
             ...options,
             headers: {
-                apikey: global.SUPABASE_ANON_KEY,
-                Authorization: 'Bearer ' + global.SUPABASE_ANON_KEY,
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
+                ...baseHeaders,
                 Prefer: options.prefer || 'return=minimal',
                 ...(options.headers || {}),
             },
@@ -62,6 +73,7 @@
             correct_count: Math.max(0, Math.floor(Number(row.correct_count) || 0)),
             time_taken_seconds: Math.max(0, Math.floor(Number(row.time_taken_seconds) || 0)),
             mode: row.mode || 'MULTIPLICATION',
+            user_id: row.user_id || null,
         };
 
         try {

@@ -1,9 +1,15 @@
 /**
  * Sprint play page — session guard, countdown, engine init, Supabase insert, results reveal.
  */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+    if (window.SprintAuth) {
+        await SprintAuth.init();
+    }
+
     var session = SprintSession.readSession();
-    if (!session) {
+    var profile = SprintAuth.getProfile();
+
+    if (!session || !profile || session.userId !== profile.id) {
         window.location.replace(SiteBase.path('index.html#multiplicationSection'));
         return;
     }
@@ -80,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 correct_count: result.correct,
                 time_taken_seconds: result.timeTakenSeconds,
                 mode: result.mode,
+                user_id: result.userId || (SprintAuth.getProfile() && SprintAuth.getProfile().id),
             });
             submitted = true;
             return { ok: true };

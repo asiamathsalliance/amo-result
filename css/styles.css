@@ -2157,3 +2157,154 @@ textarea::placeholder {
         margin-inline: auto;
     }
 }
+
+/* ── Google auth + profile (multiplication game) ── */
+.header-profile-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.profile-menu-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 2px solid color-mix(in srgb, var(--color-text-inverse) 35%, transparent);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-text-inverse) 10%, transparent);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.profile-menu-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: color-mix(in srgb, var(--color-secondary) 35%, var(--color-primary));
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 160px;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--color-primary) 16%, transparent);
+    z-index: 80;
+}
+
+.profile-dropdown-item {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.profile-dropdown-item:hover {
+    background: var(--color-bg);
+}
+
+.sprint-auth-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sprint-continue-as {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+}
+
+.sprint-continue-as strong {
+    color: var(--color-primary);
+}
+
+.btn-google {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.btn-google:hover {
+    background: var(--color-bg);
+    transform: translateY(-1px);
+}
+
+.btn-google-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-settings-modal {
+    max-width: 480px;
+}
+
+.profile-settings-sub {
+    margin: 0 0 18px;
+    color: var(--color-text-secondary);
+    font-size: 0.92rem;
+}
+
+.profile-settings-error {
+    min-height: 1.25rem;
+    margin: 8px 0 0;
+    font-size: 0.82rem;
+    color: #b42318;
+}
+
+.profile-delete-btn {
+    width: 100%;
+    margin-top: 14px;
+    min-height: 44px;
+    border: 1px solid #e7b4b4;
+    border-radius: var(--radius-sm);
+    background: #fff5f5;
+    color: #b42318;
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+.profile-delete-btn:hover {
+    background: #fde8e8;
+}
+
+#profileSettingsEmail {
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+    .header-profile-wrap {
+        width: 100%;
+        justify-content: center;
+        margin-top: 4px;
+    }
+
+    .profile-dropdown {
+        right: 50%;
+        transform: translateX(50%);
+    }
+}

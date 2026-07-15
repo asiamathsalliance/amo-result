@@ -120,6 +120,7 @@
                 timeTakenSeconds: getElapsedSeconds(),
                 mode: session.mode,
                 alias: session.alias,
+                userId: session.userId || null,
             });
         }
 

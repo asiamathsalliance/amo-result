@@ -87,6 +87,20 @@
         } catch (e) { /* ignore */ }
     }
 
+    function createSessionFromProfile(profile) {
+        if (!profile || !profile.id || !profile.username) {
+            return { ok: false, error: 'Please sign in with Google to play.' };
+        }
+        var check = validateAlias(profile.username);
+        if (!check.valid) {
+            return { ok: false, error: check.error };
+        }
+        var session = defaultSession(check.alias);
+        session.userId = profile.id;
+        saveSession(session);
+        return { ok: true, session: session };
+    }
+
     function createSessionFromAlias(alias) {
         var check = validateAlias(alias);
         if (!check.valid) return { ok: false, error: check.error };
@@ -102,6 +116,7 @@
         saveSession: saveSession,
         readSession: readSession,
         clearSession: clearSession,
+        createSessionFromProfile: createSessionFromProfile,
         createSessionFromAlias: createSessionFromAlias,
         defaultSession: defaultSession,
     };
