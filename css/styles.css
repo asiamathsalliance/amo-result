@@ -139,7 +139,7 @@ button {
 /* ── Header ── */
 .top-bar {
     --header-gutter: clamp(24px, 3.5vw, 40px);
-    --logo-nav-gap: clamp(8px, 1.2vw, 14px);
+    --logo-nav-gap: clamp(16px, 2.2vw, 26px);
     --logo-footprint: clamp(40px, 5vw, 54px);
     position: fixed;
     top: 0;
@@ -152,7 +152,7 @@ button {
     gap: clamp(12px, 2vw, 24px);
     height: var(--header-height);
     padding-left: var(--header-gutter);
-    padding-right: calc(var(--header-gutter) + var(--logo-footprint) + var(--logo-nav-gap));
+    padding-right: var(--header-gutter);
     padding-top: env(safe-area-inset-top);
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
@@ -183,6 +183,7 @@ button {
     flex: 0 1 auto;
     gap: clamp(10px, 1.6vw, 22px);
     min-width: 0;
+    margin-left: clamp(4px, 0.6vw, 8px);
 }
 
 .top-bar-right {
