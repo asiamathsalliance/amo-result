@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Leaderboard — AMO</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="../favicon-final.png?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="top-bar">
+        <a href="../index.html">
+            <img src="../logo.png" alt="Asia Math Alliance" class="top-logo">
+        </a>
+
+        <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav id="siteNav" class="top-texts">
+            <button id="navClose" class="nav-close" aria-label="Close menu">&times;</button>
+            <a href="../index.html" class="nav-item nav-item--link">Home</a>
+            <a href="../index.html#aboutSection" class="nav-item nav-item--link">About</a>
+            <a href="../index.html#amcSection" class="nav-item nav-item--link">AMO Preliminary</a>
+            <a href="../index.html#multiplicationSection" class="nav-item nav-item--link">Multiplication Game</a>
+            <a href="../leaderboard/" class="nav-item nav-item--link active">Leaderboard</a>
+            <button type="button" class="nav-contact contact-nav">Contact Us</button>
+        </nav>
+    </header>
+
+    <div id="navOverlay" class="nav-overlay"></div>
+
+    <main>
+        <section class="section-block reveal-section leaderboard-page">
+            <div class="leaderboard-wrap">
+                <span class="section-chip">Rankings</span>
+                <h1>Multiplication Sprint Leaderboard</h1>
+                <p class="leaderboard-intro">Top players ranked by correct answers. Showing the latest 50 entries.</p>
+                <p id="leaderboardStatus" class="leaderboard-status" aria-live="polite"></p>
+
+                <div class="leaderboard-table-wrap">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Alias</th>
+                                <th>Correct</th>
+                                <th>When</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="leaderboard-actions">
+                    <a href="../index.html#multiplicationSection" class="btn-secondary leaderboard-play-btn">Play Sprint</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Asia Math Alliance. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/alias-moderation.js"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-config.local.js"></script>
+    <script src="../js/supabase-client.js"></script>
+    <script src="../js/sprint-leaderboard.js"></script>
+    <script src="../js/page-nav.js"></script>
+</body>
+</html>

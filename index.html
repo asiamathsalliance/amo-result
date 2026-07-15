@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>AMO Finals Result</title>
+    <title>AMO Preliminary Result</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/png" id="favicon" href="favicon-final.png?v=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,8 +34,9 @@
             <button id="navClose" class="nav-close" aria-label="Close menu">&times;</button>
             <span class="nav-item active" data-target="homeSection">Home</span>
             <span class="nav-item" data-target="aboutSection">About</span>
-            <span class="nav-item" data-target="amcSection">AMO Finals</span>
+            <span class="nav-item" data-target="amcSection">AMO Preliminary</span>
             <span class="nav-item" data-target="multiplicationSection">Multiplication Game</span>
+            <a href="leaderboard/" class="nav-item nav-item--link">Leaderboard</a>
             <button type="button" class="nav-contact contact-nav">Contact Us</button>
         </nav>
     </header>
@@ -54,7 +55,7 @@
                 <p>
                     The Asia Mathematics Olympiad (AMO) is an international competition that aims to allow students to reveal and embrace their talent in Mathematics. More than 180,000 students from countries such as Japan, China, Hong Kong and Korea have participated in this competition since 1991.
                 </p>
-                <button type="button" class="home-button">AMO Finals Result</button>
+                <button type="button" class="home-button">AMO Preliminary Result</button>
             </div>
         </section>
 
@@ -62,7 +63,8 @@
         <section id="aboutSection" class="section-block reveal-section">
             <div class="about-content">
                 <div class="about-logo-wrap">
-                    <img src="logo.png" alt="Asia Math Alliance" class="about-logo">
+                    <img src="logo.png" alt="Asia Math Alliance mascot" class="about-logo about-logo--mascot">
+                    <img src="images/our_logo.png" alt="Asia Maths Alliance Pte Ltd" class="about-logo about-logo--brand">
                 </div>
                 <div class="about-text-wrap">
                     <span class="section-chip">About Us</span>
@@ -75,22 +77,22 @@
             </div>
         </section>
 
-        <!-- AMO FINALS -->
+        <!-- AMO PRELIMINARY -->
         <section id="amcSection" class="section-block reveal-section">
             <div class="amc-content">
                 <div class="amc-text">
                     <div class="text-block">
                         <span class="section-chip">Competition Results</span>
-                        <h1>AMO 2025 Finals</h1>
+                        <h1>AMO 2025 Preliminary Round</h1>
                         <p class="amc-description">
-                            Congratulations to all winners of the AMO Preliminary Rounds! Your achievement reflects your dedication and strong mathematical ability. We are pleased to announce that Gold and Silver Award recipients will be invited to compete in the Asia Mathematics Olympiad Finals 2025, held in Japan from 6–8 December 2025. This is an exciting opportunity to represent your country on an international stage and celebrate excellence in mathematics.
+                            Congratulations to all participants of the AMO 2025 Preliminary Round! Your achievement reflects your dedication and strong mathematical ability. Gold and Silver Award recipients will be invited to the Asia Mathematics Olympiad Finals 2025, held in Japan from 6–8 December 2025.
                         </p>
                         <p class="amc-dates">
-                            Please see below to view your results in the AMO Finals 2025!
+                            Please see below to view your results in the AMO 2025 Preliminary Round!
                         </p>
                     </div>
                     <div class="image-block">
-                        <img src="figure.png" alt="AMO Finals" class="amo-image">
+                        <img src="figure.png" alt="AMO Preliminary Round" class="amo-image">
                     </div>
                 </div>
 
@@ -110,7 +112,7 @@
                         <h1>Multiplication Sprint</h1>
                         <p>Sharpen your mental math with a fast-paced 60-second challenge. Work through random times-table facts from 1×1 up to 12×10 and build your score with every correct answer.</p>
                         <ul class="game-entry-features">
-                            <li><strong>60 seconds</strong> per sprint</li>
+                            <li><strong>5 seconds</strong> per sprint (testing)</li>
                             <li><strong>1–12 × 1–10</strong> question range</li>
                             <li><strong>Streak bonus</strong> for consecutive correct answers</li>
                         </ul>
@@ -120,95 +122,16 @@
                             <p class="game-entry-card-label">Ready to begin?</p>
                             <h2 class="game-entry-card-title">Start Your Sprint</h2>
                             <p class="game-entry-card-desc">Answer as many multiplication questions as you can before the timer runs out.</p>
-                            <button type="button" id="gameStartBtn" class="btn-secondary game-entry-btn">Start Sprint</button>
+                            <label for="gameAliasInput" class="game-alias-label">Nickname <span id="gameAliasRequired" class="game-alias-required">*</span></label>
+                            <input type="text" id="gameAliasInput" class="game-alias-input game-entry-btn" maxlength="20" placeholder="Your display name" autocomplete="off">
+                            <p id="gameAliasError" class="game-alias-error" aria-live="polite"></p>
+                            <button type="button" id="gameStartBtn" class="btn-secondary game-entry-btn" disabled>Start Sprint</button>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="game-shell">
-                <div id="gamePlayPanel" class="game-panel">
-                    <div class="game-stats-bar">
-                        <div class="game-stat">
-                            <span class="game-stat-label">Score</span>
-                            <span class="game-stat-value" id="gameScore">0</span>
-                        </div>
-                        <div class="game-stat">
-                            <span class="game-stat-label">Correct</span>
-                            <span class="game-stat-value" id="gameCorrect">0</span>
-                        </div>
-                        <div class="game-stat">
-                            <span class="game-stat-label">Time</span>
-                            <span class="game-stat-value game-timer-value" id="gameTimer">60</span>
-                        </div>
-                    </div>
-
-                    <div class="game-timer-bar" aria-hidden="true">
-                        <div class="game-timer-fill" id="gameTimerFill"></div>
-                    </div>
-
-                    <div class="game-card-wrap">
-                        <span class="label-chip game-streak-badge" id="gameStreakBadge">0 streak</span>
-                        <div class="game-card" id="gameCard">
-                            <p class="game-question" id="gameQuestion" aria-live="polite">
-                                <span id="gameOperandA">?</span>
-                                <span class="game-times">×</span>
-                                <span id="gameOperandB">?</span>
-                            </p>
-                            <hr class="game-answer-divider">
-                            <input
-                                type="text"
-                                inputmode="numeric"
-                                autocomplete="off"
-                                id="gameAnswerInput"
-                                class="game-answer-input"
-                                placeholder="Your answer"
-                                aria-label="Answer"
-                            >
-                        </div>
-                    </div>
-
-                    <div class="game-keypad" id="gameKeypad">
-                        <button type="button" class="game-key" data-key="1">1</button>
-                        <button type="button" class="game-key" data-key="2">2</button>
-                        <button type="button" class="game-key" data-key="3">3</button>
-                        <button type="button" class="game-key" data-key="4">4</button>
-                        <button type="button" class="game-key" data-key="5">5</button>
-                        <button type="button" class="game-key" data-key="6">6</button>
-                        <button type="button" class="game-key" data-key="7">7</button>
-                        <button type="button" class="game-key" data-key="8">8</button>
-                        <button type="button" class="game-key" data-key="9">9</button>
-                        <button type="button" class="game-key game-key--clear" data-key="clear">⌫</button>
-                        <button type="button" class="game-key" data-key="0">0</button>
-                        <button type="button" class="game-key game-key--submit" data-key="submit">Go</button>
-                    </div>
-                </div>
-
-                <div id="gameResultsPanel" class="game-panel">
-                    <div class="game-results-card">
-                        <h2>Sprint Complete</h2>
-                        <p class="game-results-sub">Multiplication Sprint — 60 seconds</p>
-                        <p class="game-results-score" id="resultsScore">0</p>
-                        <p class="game-results-score-label">Total points</p>
-                        <div class="game-results-grid">
-                            <div class="game-results-stat">
-                                <span class="game-results-stat-label">Correct</span>
-                                <span class="game-results-stat-value" id="resultsCorrect">0</span>
-                            </div>
-                            <div class="game-results-stat">
-                                <span class="game-results-stat-label">Accuracy</span>
-                                <span class="game-results-stat-value" id="resultsAccuracy">0%</span>
-                            </div>
-                            <div class="game-results-stat">
-                                <span class="game-results-stat-label">Best Streak</span>
-                                <span class="game-results-stat-value" id="resultsStreak">0</span>
-                            </div>
-                        </div>
-                        <button type="button" id="gameTryAgainBtn" class="btn-secondary game-start-btn">Try Again</button>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer class="site-footer">
@@ -223,8 +146,9 @@
                     <ul class="footer-list">
                         <li><span class="footer-item footer-link-btn" data-target="homeSection">Home</span></li>
                         <li><span class="footer-item footer-link-btn" data-target="aboutSection">About</span></li>
-                        <li><span class="footer-item footer-link-btn" data-target="amcSection">AMO Finals</span></li>
+                        <li><span class="footer-item footer-link-btn" data-target="amcSection">AMO Preliminary</span></li>
                         <li><span class="footer-item footer-link-btn" data-target="multiplicationSection">Multiplication Game</span></li>
+                        <li><a class="footer-item" href="leaderboard/">Leaderboard</a></li>
                         <li><button type="button" class="footer-item footer-link-btn contact-nav">Contact Us</button></li>
                     </ul>
                 </div>
@@ -351,7 +275,7 @@
                 </div>
             </div>
             <p id="downloadLink">
-                <a href="#" id="openCertLink">Download your certificate!</a>
+                <a href="javascript:void(0)" id="openCertLink">Download your certificate!</a>
             </p>
         </div>
     </div>
@@ -419,7 +343,12 @@
         </div>
     </div>
 
+    <script src="js/result-confetti.js"></script>
+    <script src="js/alias-moderation.js"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/supabase-config.local.js"></script>
+    <script src="js/sprint-session.js"></script>
+    <script src="js/sprint-inline.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/multiplication-game.js"></script>
 </body>
 </html>

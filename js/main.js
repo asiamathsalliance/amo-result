@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
             congratulationMessage.textContent = 'Congratulation for achieving BRONZE!';
 
         } else {
-            congratulationMessage.textContent = 'Thank you for particpating in AMO Finals.';
+            congratulationMessage.textContent = 'Thank you for participating in the AMO Preliminary Round.';
         }
 
         scoreText.textContent = tempResult + ' / 100';
@@ -499,26 +499,13 @@ document.addEventListener('DOMContentLoaded', function() {
         name.textContent = capitalize(tempFullName);
 
         messageText.textContent = 'Category: ' + tempCategory;
-            setTimeout(() => {
-                confetti({
-                    particleCount: 250,
-                    spread: 300,
-                    origin: { y: 0.55 },
-                    ticks: 350
-                });
-
-                // Move the canvas above modal
-                const canvas = document.querySelector('canvas');
-                if (canvas) {
-                    canvas.style.position = 'fixed';
-                    canvas.style.top = '0';
-                    canvas.style.left = '0';
-                    canvas.style.zIndex = '10000';  // above modal
-                    canvas.style.pointerEvents = 'none'; // allow clicks through canvas
-                }
-            }, 100);
- 
         modal.style.display = 'flex';
+
+        setTimeout(function () {
+            if (typeof fireResultConfetti === 'function') {
+                fireResultConfetti();
+            }
+        }, 120);
     };
 
     // FORMAT NAME
@@ -531,15 +518,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // LINK FROM RESULT MODAL TO DOWNLOAD CERTIFICATE MODAL
     document.getElementById("openCertLink").addEventListener("click", function(event) {
+        event.preventDefault();
         resetSpinner();
         showSpinner();
 
         setTimeout(() => {
-            // Close the result box
-            event.preventDefault(); // prevent the page from jumping
             document.getElementById("resultBox").style.display = "none";
 
-            // Open the certificate box
             headerMessage.textContent = "Download Your Certificate!";
             document.getElementById("emailBox").style.display = "flex";
             hideSpinnerKeepBackground();
@@ -623,12 +608,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /* DOWNLOAD CERTIFICATE WITH PROGRESS BAR */
     function downloadCertificate() {
+        const scrollY = window.scrollY;
+        downloadOverlay.classList.add('cert-download');
         downloadOverlay.style.display = 'flex';
         downloadContainer.style.display = 'flex';
         const message = document.getElementById('downloadLabel');
         message.textContent = "Downloading...";
 
         progressBar.style.width = '0%'; // reset
+
+        requestAnimationFrame(() => {
+            window.scrollTo(0, scrollY);
+        });
 
         let progress = 0;
         const interval = setInterval(() => {
@@ -650,11 +641,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 setTimeout(() => {
                     downloadOverlay.style.display = "none";
+                    downloadOverlay.classList.remove('cert-download');
                     downloadContainer.style.display = "none";
                     message.textContent = "";
                     emailBox.style.display = 'none';
                     document.getElementById("categorySelect").selectedIndex = 0;
                     document.getElementById("categorySelect").style.color = "#999";
+                    window.scrollTo(0, scrollY);
                 }, 3800);
             }
             progressBar.style.width = progress + '%';
@@ -664,6 +657,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function submitEnquiry() {
         sendEnquiryEmail();
+        downloadOverlay.classList.remove('cert-download');
         downloadOverlay.style.display = 'flex';
         downloadContainer.style.display = 'flex';
         const message = document.getElementById('downloadLabel');
@@ -750,7 +744,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const homeButton = document.querySelector('.home-button');
+    const homeButton = document.querySelector('.home-button:not(.home-button--sprint)');
     if (homeButton) {
         homeButton.addEventListener('click', () => {
             const targetSection = document.getElementById('amcSection');
@@ -759,6 +753,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
             }
         });
+    }
+
+    if (window.location.hash) {
+        const hashId = window.location.hash.slice(1);
+        const hashSection = document.getElementById(hashId);
+        if (hashSection) {
+            setTimeout(() => {
+                const y = hashSection.getBoundingClientRect().top + window.scrollY - headerOffset;
+                window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+            }, 120);
+        }
     }
 
     const sectionObserver = new IntersectionObserver((entries) => {
