@@ -71,6 +71,7 @@ Open **SQL Editor** and run these files **in order**:
 1. `supabase/migrations/001_sprint_leaderboard.sql` (if not already run)
 2. `supabase/migrations/002_add_correct_count.sql` (if not already run)
 3. `supabase/migrations/004_multiplication_auth.sql` ← **required for Google sign-in**
+4. `supabase/migrations/005_leaderboard_one_best_per_user.sql` ← **one row per user, best score kept**
 
 Optional: `supabase/reset_leaderboard_seed.sql` for demo leaderboard data.
 
@@ -100,7 +101,7 @@ Created automatically on first Google sign-in (DB trigger).
 | `correct_count` | Correct answers |
 | `score` | Points |
 
-Only **signed-in** users can insert new scores (RLS).
+Only **signed-in** users can save scores (via `upsert_sprint_leaderboard_best` RPC). Each user has **at most one row** — their personal best by `correct_count`, then `score`.
 
 ---
 
@@ -155,6 +156,7 @@ AMO Preliminary results, certificates, and other sections do **not** require sig
 | Nav clicks do nothing | Hard-refresh (`Cmd+Shift+R`); nav now uses hash links + `js/home-nav.js` |
 | Redirect loop / 404 after Google | Add Vercel URL to Supabase Redirect URLs |
 | `auth/callback` error | Confirm Google redirect URI is Supabase `/auth/v1/callback` |
-| Score not saving | Run migration `004_multiplication_auth.sql`; user must be signed in |
+| Score not saving | Run migrations `004_multiplication_auth.sql` and `005_leaderboard_one_best_per_user.sql`; user must be signed in |
+| Duplicate users on leaderboard | Run migration `005_leaderboard_one_best_per_user.sql` in Supabase SQL Editor |
 | Username taken | Pick a different username in Settings |
 | Delete account fails | Ensure `delete_own_account()` RPC exists (migration 004) |

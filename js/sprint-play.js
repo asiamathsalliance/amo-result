@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
 
         try {
-            await SprintSupabase.insertLeaderboardRow({
+            var saveResponse = await SprintSupabase.insertLeaderboardRow({
                 alias: result.alias,
                 score: result.score,
                 correct_count: result.correct,
@@ -125,7 +125,10 @@ document.addEventListener('DOMContentLoaded', async function () {
                 user_id: result.userId || (SprintAuth.getProfile() && SprintAuth.getProfile().id),
             });
             submitted = true;
-            return { ok: true };
+            return {
+                ok: true,
+                improved: saveResponse && saveResponse.improved !== false,
+            };
         } catch (err) {
             console.error('Leaderboard save failed:', err);
             return { ok: false, error: err.message || 'Save failed' };
@@ -154,7 +157,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         if (saveStatusEl) {
             if (saveResult.ok && !saveResult.skipped) {
-                saveStatusEl.textContent = 'Score saved to leaderboard.';
+                saveStatusEl.textContent = saveResult.improved
+                    ? 'New personal best saved to leaderboard.'
+                    : 'Previous best kept on leaderboard.';
                 saveStatusEl.classList.remove('results-save-status--error');
             } else if (!saveResult.ok) {
                 saveStatusEl.textContent = 'Could not save score: ' + (saveResult.error || 'Unknown error');

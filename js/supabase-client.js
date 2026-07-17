@@ -18,6 +18,19 @@
         return msg.indexOf('correct_count') !== -1 || msg.indexOf('user_id') !== -1;
     }
 
+    function isMissingRpcError(err) {
+        var msg = String((err && err.message) || '').toLowerCase();
+        return msg.indexOf('upsert_sprint_leaderboard_best') !== -1 ||
+            msg.indexOf('could not find the function') !== -1 ||
+            msg.indexOf('function') !== -1 && msg.indexOf('does not exist') !== -1;
+    }
+
+    function compareScores(aCorrect, aScore, bCorrect, bScore) {
+        var correctDiff = Number(bCorrect) - Number(aCorrect);
+        if (correctDiff !== 0) return correctDiff;
+        return Number(bScore) - Number(aScore);
+    }
+
     async function getAuthHeaders() {
         var token = null;
         if (global.SprintAuth && SprintAuth.getAccessToken) {
@@ -49,12 +62,20 @@
         if (!res.ok) {
             throw new Error(text || 'Supabase request failed (' + res.status + ')');
         }
-        if (!text) return [];
+        if (!text) return null;
         try {
             return JSON.parse(text);
         } catch (e) {
-            return [];
+            return null;
         }
+    }
+
+    async function insertLeaderboardRowLegacy(fullPayload) {
+        return rest('sprint_leaderboard', {
+            method: 'POST',
+            body: JSON.stringify(fullPayload),
+            prefer: 'return=representation',
+        });
     }
 
     async function insertLeaderboardRow(row) {
@@ -77,24 +98,42 @@
         };
 
         try {
-            return await rest('sprint_leaderboard', {
+            var rpcResult = await rest('rpc/upsert_sprint_leaderboard_best', {
                 method: 'POST',
-                body: JSON.stringify(fullPayload),
-                prefer: 'return=representation',
+                body: JSON.stringify({
+                    p_alias: fullPayload.alias,
+                    p_score: fullPayload.score,
+                    p_correct_count: fullPayload.correct_count,
+                    p_time_taken_seconds: fullPayload.time_taken_seconds,
+                    p_mode: fullPayload.mode,
+                }),
             });
+
+            if (rpcResult && typeof rpcResult.improved === 'boolean') {
+                return {
+                    improved: rpcResult.improved,
+                    row: rpcResult.row || null,
+                };
+            }
+
+            return { improved: true, row: rpcResult };
         } catch (err) {
+            if (isMissingRpcError(err)) {
+                await insertLeaderboardRowLegacy(fullPayload);
+                return { improved: true, row: null };
+            }
             if (!isMissingColumnError(err)) throw err;
-            const legacyPayload = {
-                alias: fullPayload.alias,
-                score: fullPayload.score,
-                time_taken_seconds: fullPayload.time_taken_seconds,
-                mode: fullPayload.mode,
-            };
-            return rest('sprint_leaderboard', {
+            await rest('sprint_leaderboard', {
                 method: 'POST',
-                body: JSON.stringify(legacyPayload),
+                body: JSON.stringify({
+                    alias: fullPayload.alias,
+                    score: fullPayload.score,
+                    time_taken_seconds: fullPayload.time_taken_seconds,
+                    mode: fullPayload.mode,
+                }),
                 prefer: 'return=representation',
             });
+            return { improved: true, row: null };
         }
     }
 
@@ -141,14 +180,36 @@
         });
     }
 
+    function dedupeLeaderboardRows(rows) {
+        var bestByKey = {};
+        var order = [];
+
+        rows.forEach(function (row) {
+            var key = row.user_id ? ('user:' + row.user_id) : ('alias:' + String(row.alias || '').trim().toLowerCase());
+            var existing = bestByKey[key];
+            if (!existing || compareScores(row.correct_count, row.score, existing.correct_count, existing.score) > 0) {
+                if (!existing) order.push(key);
+                bestByKey[key] = row;
+            }
+        });
+
+        return order.map(function (key) {
+            return bestByKey[key];
+        }).sort(function (a, b) {
+            return compareScores(b.correct_count, b.score, a.correct_count, a.score);
+        });
+    }
+
     async function fetchLeaderboard(limit) {
+        var maxRows = Math.max(Number(limit) || 50, 50);
         const fullQuery =
             'select=alias,score,correct_count,time_taken_seconds,mode,created_at,user_id' +
             '&order=correct_count.desc,score.desc' +
-            '&limit=' + String(limit || 50);
+            '&limit=' + String(maxRows * 3);
         try {
             var rows = await rest('sprint_leaderboard?' + fullQuery, { method: 'GET' });
             if (!Array.isArray(rows)) return [];
+            rows = dedupeLeaderboardRows(rows).slice(0, maxRows);
             var userIds = rows.map(function (row) { return row.user_id; });
             var profileMap = await fetchProfilesByUserIds(userIds);
             return enrichRowsWithProfiles(rows, profileMap);
@@ -157,14 +218,25 @@
             const legacyQuery =
                 'select=alias,score,time_taken_seconds,mode,created_at' +
                 '&order=score.desc' +
-                '&limit=' + String(limit || 50);
+                '&limit=' + String(maxRows * 3);
             var legacyRows = await rest('sprint_leaderboard?' + legacyQuery, { method: 'GET' });
             if (!Array.isArray(legacyRows)) return [];
-            return legacyRows.map(function (row) {
+            legacyRows = dedupeLeaderboardRows(legacyRows.map(function (row) {
                 return {
                     alias: row.alias,
                     score: row.score,
                     correct_count: row.score,
+                    time_taken_seconds: row.time_taken_seconds,
+                    mode: row.mode,
+                    created_at: row.created_at,
+                    user_id: null,
+                };
+            })).slice(0, maxRows);
+            return legacyRows.map(function (row) {
+                return {
+                    alias: row.alias,
+                    score: row.score,
+                    correct_count: row.correct_count,
                     time_taken_seconds: row.time_taken_seconds,
                     mode: row.mode,
                     created_at: row.created_at,
