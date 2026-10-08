@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>AMO 2026 Finals — Asia Math Alliance</title>
+    <meta name="description" content="Asia Mathematics Olympics 2026 Finals: Trial Round medalists and finalists by category, presented by Asia Maths Alliance.">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/finals.css">
+    <link rel="icon" type="image/png" sizes="48x48" href="../logo.png?v=2">
+    <link rel="apple-touch-icon" href="../logo.png?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="top-bar-start">
+            <a href="../index.html">
+                <img src="../logo.png" alt="Asia Math Alliance" class="top-logo">
+            </a>
+
+            <nav id="siteNav" class="top-texts">
+            <button id="navClose" class="nav-close" aria-label="Close menu">&times;</button>
+            <a href="../index.html" class="nav-item nav-item--link">Home</a>
+            <a href="../index.html#aboutSection" class="nav-item nav-item--link">About</a>
+            <a href="../index.html#amcSection" class="nav-item nav-item--link">AMO Preliminary</a>
+            <a href="../finals/" class="nav-item nav-item--link active">AMO Finals</a>
+            <a href="../index.html#multiplicationSection" class="nav-item nav-item--link">Multiplication Game</a>
+            <a href="../leaderboard/" class="nav-item nav-item--link">Leaderboard</a>
+            </nav>
+        </div>
+
+        <div class="top-bar-right">
+            <div class="top-bar-actions">
+                <div class="header-profile-wrap" id="headerProfileWrap" hidden>
+                    <button type="button" id="profileMenuBtn" class="profile-menu-btn" aria-label="Account settings" aria-expanded="false" aria-haspopup="true">
+                        <img id="profileAvatarImg" class="profile-menu-avatar" alt="" hidden>
+                        <span id="profileAvatarFallback" class="profile-menu-avatar profile-menu-avatar--fallback" hidden aria-hidden="true"></span>
+                    </button>
+                    <div id="profileDropdown" class="profile-dropdown" hidden>
+                        <button type="button" id="profileSettingsBtn" class="profile-dropdown-item">Settings</button>
+                        <button type="button" id="profileSignOutBtn" class="profile-dropdown-item">Sign out</button>
+                    </div>
+                </div>
+                <button type="button" class="nav-contact contact-nav">Contact Us</button>
+            </div>
+            <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <div id="navOverlay" class="nav-overlay"></div>
+
+    <main class="finals-page">
+
+        <!-- HERO -->
+        <section class="section-block finals-hero">
+            <div class="finals-wrap finals-hero-inner">
+                <span class="section-chip">2026 Finalists</span>
+                <h1>AMO 2026 Finals</h1>
+                <div class="finals-hero-divider"></div>
+                <p class="finals-hero-sub">
+                    Medalists from the AMO 2026 Trial Round. 759 contestants from 10 countries competed across four categories; Gold and Silver medalists, together with selected Bronze medalists, advance to the Finals.
+                </p>
+                <ul class="finals-hero-categories">
+                    <li>Normal Kidbee</li>
+                    <li>Open Kidbee</li>
+                    <li>Normal Senior</li>
+                    <li>Open Senior</li>
+                </ul>
+
+                <div class="finals-stats">
+                    <div class="finals-stat g"><span class="finals-num">76</span><span class="finals-stat-label">Gold</span></div>
+                    <div class="finals-stat s"><span class="finals-num">76</span><span class="finals-stat-label">Silver</span></div>
+                    <div class="finals-stat b"><span class="finals-num">73</span><span class="finals-stat-label">Bronze</span></div>
+                    <div class="finals-stat"><span class="finals-num">225</span><span class="finals-stat-label">Medals in all</span></div>
+                    <div class="finals-stat"><span class="finals-num">194</span><span class="finals-stat-label">Finalists</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCORE CUTOFFS -->
+        <section id="cutoffs" class="section-block finals-cutoffs">
+            <div class="finals-wrap">
+                <div class="finals-section-head">
+                    <span class="section-chip">Medal Thresholds</span>
+                    <h2>Score cutoffs out of 100</h2>
+                    <p>All Gold and Silver medalists are finalists, along with selected Bronze medalists. Cutoffs are the 90th, 80th and 70th percentiles of the 708 entries with a recorded score.</p>
+                </div>
+
+                <div class="finals-table-card">
+                    <table class="finals-table">
+                        <thead>
+                            <tr>
+                                <th>Percentile</th>
+                                <th class="award">Medal award</th>
+                                <th>Normal Kidbee</th>
+                                <th>Open Kidbee</th>
+                                <th>Normal Senior</th>
+                                <th>Open Senior</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="g"><td>90th</td><td class="award">Gold · Finalist</td><td>52</td><td>67</td><td>74</td><td>87</td></tr>
+                            <tr class="s"><td>80th</td><td class="award">Silver · Finalist</td><td>41</td><td>58</td><td>57</td><td>76</td></tr>
+                            <tr class="b"><td>70th</td><td class="award">Bronze · Selected finalists</td><td>36</td><td>50</td><td>49</td><td>64</td></tr>
+                            <tr class="stat-row"><td></td><td class="award">Top score</td><td>84</td><td>93</td><td>100</td><td>100</td></tr>
+                            <tr class="stat-row"><td></td><td class="award">Average score</td><td>28.4</td><td>41.0</td><td>39.6</td><td>50.0</td></tr>
+                            <tr class="stat-row"><td></td><td class="award">Entries</td><td>185</td><td>255</td><td>147</td><td>172</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEDALISTS -->
+        <section id="medalists" class="section-block finals-medalists">
+            <div class="finals-wrap finals-wrap--narrow">
+                <div class="finals-section-head">
+                    <span class="section-chip">Medal Winners</span>
+                    <h2>Medalists by category</h2>
+                    <p>Select a category, then filter by country or search for a student or school. Ranks are within each category.</p>
+                </div>
+
+                <div class="finals-tabs" role="tablist" id="finalsTabs"></div>
+
+                <div class="finals-filters">
+                    <div class="finals-field">
+                        <label for="finalsSearch">Search name or school</label>
+                        <input id="finalsSearch" type="search" placeholder="Type to filter" autocomplete="off">
+                    </div>
+                    <div class="finals-field">
+                        <label for="finalsCountry">Country</label>
+                        <select id="finalsCountry" class="is-placeholder"></select>
+                    </div>
+                </div>
+
+                <p class="finals-summary" id="finalsSummary" aria-live="polite"></p>
+
+                <div id="finalsGroups" class="finals-groups"></div>
+
+                <p class="finals-footnote">
+                    Results compiled by Asia Maths Alliance Pte Ltd. Finalists will be invited to the Finals. Please contact us if you spot an error in a name or school.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Asia Math Alliance. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/site-base.js"></script>
+    <script src="../js/finals-2026-data.js"></script>
+    <script src="../js/finals.js"></script>
+    <script src="../js/page-nav.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script src="../js/supabase-config.local.js"></script>
+    <script src="../js/supabase-auth.js"></script>
+    <script src="../js/sprint-auth-ui.js"></script>
+</body>
+</html>

@@ -455,6 +455,87 @@ main {
     background: var(--color-bg);
 }
 
+/* ── AMO Finals (home subsection; full page lives at /finals/) ── */
+#finalsSection {
+    background: var(--color-surface);
+}
+
+#finalsSection .button-container a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.finals-stats-card {
+    width: min(100%, 420px);
+    padding: clamp(24px, 3vw, 36px) clamp(22px, 3vw, 32px);
+    background: var(--color-primary);
+    border-radius: var(--radius-card);
+    border-top: var(--section-divider) solid var(--color-secondary);
+    color: var(--color-text-inverse);
+}
+
+.finals-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.finals-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 10px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.finals-stat-num {
+    font-family: var(--font-heading);
+    font-size: clamp(1.9rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.finals-stat--gold .finals-stat-num { color: var(--color-secondary); }
+.finals-stat--silver .finals-stat-num { color: #C9D1DE; }
+.finals-stat--bronze .finals-stat-num { color: #D9A071; }
+
+.finals-stat-label {
+    margin-top: 8px;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.finals-stats-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.finals-stats-foot strong {
+    color: var(--color-text-inverse);
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    .finals-stats-foot {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
 #multiplicationSection {
     position: relative;
     background: var(--color-surface);

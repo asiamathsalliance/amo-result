@@ -1,0 +1,590 @@
+/* ── AMO Finals page (2026 Trial Round medalists) ──
+   Uses the site design tokens from styles.css (Fraunces / Inter, navy + gold). */
+
+.finals-page section[id] {
+    scroll-margin-top: var(--header-height);
+}
+
+.finals-page {
+    --finals-gold: var(--color-secondary);
+    --finals-silver: #5F6B7D;
+    --finals-bronze: #9A5B2E;
+    --finals-gold-soft: color-mix(in srgb, var(--color-secondary) 16%, var(--color-surface));
+    --finals-silver-soft: color-mix(in srgb, #5F6B7D 14%, var(--color-surface));
+    --finals-bronze-soft: color-mix(in srgb, #9A5B2E 14%, var(--color-surface));
+}
+
+.finals-wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.finals-wrap--narrow {
+    max-width: 1040px;
+}
+
+/* ── Hero ── */
+.finals-hero {
+    display: block;
+    border-top: var(--section-divider) solid var(--color-secondary);
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    padding-top: clamp(72px, 10vw, 120px);
+    padding-bottom: clamp(64px, 8vw, 104px);
+}
+
+.finals-hero-inner {
+    text-align: center;
+}
+
+.finals-hero .section-chip {
+    margin-bottom: 22px;
+}
+
+.finals-hero h1 {
+    color: var(--color-text-inverse);
+    font-size: clamp(2rem, 4.8vw, 3.4rem);
+    line-height: 1.08;
+    margin: 0;
+}
+
+.finals-hero-divider {
+    width: 90px;
+    height: 3px;
+    margin: 22px auto 24px;
+    border-radius: 1px;
+    background: var(--color-secondary);
+}
+
+.finals-hero-sub {
+    margin: 0 auto;
+    max-width: 640px;
+    font-size: clamp(0.98rem, 1.6vw, 1.1rem);
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--color-text-inverse) 82%, transparent);
+}
+
+.finals-hero-categories {
+    margin: 18px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 14px;
+    padding: 0;
+    list-style: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: color-mix(in srgb, var(--color-text-inverse) 70%, transparent);
+}
+
+.finals-hero-categories li + li::before {
+    content: "·";
+    margin-right: 14px;
+    color: var(--color-secondary);
+}
+
+.finals-stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(12px, 1.8vw, 18px);
+    margin: clamp(44px, 6vw, 64px) auto 0;
+    max-width: 980px;
+}
+
+.finals-stat {
+    padding: clamp(20px, 2.6vw, 28px) 16px;
+    border: 1px solid color-mix(in srgb, var(--color-text-inverse) 16%, transparent);
+    border-radius: var(--radius-card);
+    background: color-mix(in srgb, var(--color-text-inverse) 6%, transparent);
+    text-align: center;
+}
+
+.finals-stat .finals-num {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-text-inverse);
+    margin-bottom: 10px;
+}
+
+.finals-stat .finals-stat-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: color-mix(in srgb, var(--color-text-inverse) 72%, transparent);
+}
+
+.finals-stat.g .finals-num { color: #E3C27E; }
+.finals-stat.s .finals-num { color: #D5DBE6; }
+.finals-stat.b .finals-num { color: #E0A878; }
+
+/* ── Section headers ── */
+.finals-section-head {
+    max-width: 720px;
+    margin-bottom: clamp(28px, 4vw, 40px);
+}
+
+.finals-section-head h2 {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    margin: 0 0 14px;
+    line-height: 1.15;
+}
+
+.finals-section-head p {
+    margin: 0;
+    font-size: clamp(0.92rem, 1.4vw, 1rem);
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+}
+
+.finals-medalists .finals-section-head {
+    max-width: none;
+}
+
+@media (min-width: 961px) {
+    .finals-medalists .finals-section-head p {
+        white-space: nowrap;
+    }
+}
+
+/* ── Cutoffs section ── */
+.finals-cutoffs {
+    background: var(--color-surface);
+    display: block;
+}
+
+.finals-table-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.finals-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+    font-size: 0.95rem;
+}
+
+.finals-table th,
+.finals-table td {
+    padding: 16px 22px;
+    text-align: right;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-border);
+    font-variant-numeric: tabular-nums;
+}
+
+.finals-table th {
+    background: var(--color-bg);
+    color: var(--color-text-secondary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+
+.finals-table th:first-child,
+.finals-table td:first-child,
+.finals-table th.award,
+.finals-table td.award {
+    text-align: left;
+}
+
+.finals-table td:first-child {
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+    width: 110px;
+}
+
+.finals-table td.award {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+}
+
+.finals-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.finals-table tr.g td.award { color: var(--finals-gold); }
+.finals-table tr.s td.award { color: var(--finals-silver); }
+.finals-table tr.b td.award { color: var(--finals-bronze); }
+
+.finals-table tr.g td,
+.finals-table tr.s td,
+.finals-table tr.b td {
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.finals-table tr.stat-row td {
+    background: color-mix(in srgb, var(--color-bg) 60%, var(--color-surface));
+    color: var(--color-text-secondary);
+}
+
+.finals-table tr.stat-row td.award {
+    color: var(--color-text-secondary);
+    font-weight: 600;
+}
+
+/* ── Medalists section ── */
+.finals-medalists {
+    background: var(--color-bg);
+    display: block;
+}
+
+.finals-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.finals-tab {
+    min-height: 44px;
+    padding: 10px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.finals-tab:hover {
+    border-color: var(--color-primary);
+}
+
+.finals-tab[aria-selected="true"] {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-text-inverse);
+}
+
+.finals-tab .c {
+    font-weight: 500;
+    opacity: 0.7;
+    letter-spacing: 0.4px;
+}
+
+.finals-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 20px;
+    align-items: flex-end;
+    padding: clamp(18px, 2.6vw, 24px);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+}
+
+.finals-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 260px;
+    min-width: 0;
+}
+
+.finals-field label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--color-text-secondary);
+}
+
+.finals-field select,
+.finals-field input {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+.finals-field input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.finals-field select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 42px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235C5F66' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 14px 14px;
+}
+
+.finals-field select.is-placeholder {
+    color: var(--color-text-muted);
+}
+
+.finals-field select option {
+    color: var(--color-text-primary);
+}
+
+.finals-summary:empty {
+    display: none;
+}
+
+.finals-field select:focus,
+.finals-field input:focus,
+.finals-tab:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.finals-summary {
+    margin: 20px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+/* medal groups */
+.finals-groups {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(36px, 5vw, 52px);
+    margin-top: clamp(32px, 4.5vw, 44px);
+}
+
+.finals-group-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-bottom: 14px;
+}
+
+.finals-group-head h3 {
+    margin: 0;
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    line-height: 1.1;
+}
+
+.finals-group.g h3 { color: var(--finals-gold); }
+.finals-group.s h3 { color: var(--finals-silver); }
+.finals-group.b h3 { color: var(--finals-bronze); }
+
+.finals-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    align-self: center;
+}
+
+.finals-group.g .finals-pill {
+    background: var(--finals-gold-soft);
+    color: var(--finals-gold);
+}
+
+.finals-group.s .finals-pill {
+    background: var(--finals-silver-soft);
+    color: var(--finals-silver);
+}
+
+.finals-count {
+    margin-left: auto;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.finals-list {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+}
+
+.finals-row {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    gap: 4px 18px;
+    align-items: center;
+    padding: 16px 22px;
+    border-top: 1px solid var(--color-border);
+    transition: background-color 0.15s ease;
+}
+
+.finals-row:first-child {
+    border-top: 0;
+}
+
+.finals-row:hover {
+    background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
+}
+
+.finals-rank {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.finals-who {
+    min-width: 0;
+}
+
+.finals-who b {
+    display: block;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.35;
+}
+
+.finals-who small {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+}
+
+.finals-score {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    padding-left: 8px;
+}
+
+.finals-score b {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-primary);
+}
+
+.finals-score small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.64rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-muted);
+}
+
+.finals-tag {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--finals-bronze-soft);
+    color: var(--finals-bronze);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: 2px;
+}
+
+.finals-empty {
+    padding: 26px 22px;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+}
+
+.finals-footnote {
+    margin: clamp(36px, 5vw, 52px) 0 0;
+    padding-top: clamp(20px, 3vw, 28px);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+    max-width: 720px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+    .finals-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .finals-hero {
+        padding-top: clamp(56px, 12vw, 80px);
+        padding-bottom: clamp(48px, 10vw, 72px);
+    }
+
+    .finals-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .finals-stat {
+        padding: 18px 12px;
+    }
+
+    .finals-hero-categories {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .finals-hero-categories li + li::before {
+        content: none;
+    }
+
+    .finals-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .finals-tab {
+        padding: 10px 12px;
+        font-size: 0.72rem;
+    }
+
+    .finals-field {
+        flex: 1 1 100%;
+    }
+
+    .finals-count {
+        margin-left: 0;
+        flex-basis: 100%;
+    }
+
+    .finals-row {
+        grid-template-columns: 40px minmax(0, 1fr) auto;
+        gap: 4px 12px;
+        padding: 14px 16px;
+    }
+
+    .finals-score b {
+        font-size: 1.15rem;
+    }
+
+    .finals-table th,
+    .finals-table td {
+        padding: 13px 16px;
+    }
+}
