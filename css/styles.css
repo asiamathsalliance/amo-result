@@ -354,8 +354,20 @@ main {
     max-width: 720px;
 }
 
-.home-button {
+.home-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
     margin-top: 32px;
+}
+
+.home-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     min-height: 48px;
     border-radius: var(--radius-sm);
     border: 2px solid var(--color-secondary);
@@ -1814,11 +1826,20 @@ textarea::placeholder {
         align-items: stretch;
     }
 
+    .home-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
     #button1,
     #button2,
     .home-button {
         width: 100%;
         margin-top: 12px;
+    }
+
+    .home-actions .home-button {
+        margin-top: 0;
     }
 
     .name-row {
