@@ -389,6 +389,7 @@
 .finals-group.g h3 { color: var(--finals-gold); }
 .finals-group.s h3 { color: var(--finals-silver); }
 .finals-group.b h3 { color: var(--finals-bronze); }
+.finals-group.p h3 { color: var(--color-text-secondary); }
 
 .finals-pill {
     display: inline-block;

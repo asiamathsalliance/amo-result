@@ -13,6 +13,7 @@
         ['G', 'Gold', 'g', true],
         ['S', 'Silver', 's', true],
         ['B', 'Bronze', 'b', false],
+        ['P', 'Participation', 'p', false],
     ];
     var cat = 'NK';
 
