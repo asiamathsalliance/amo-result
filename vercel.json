@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/finals",
+      "destination": "/amo-2026",
+      "permanent": true
+    },
+    {
+      "source": "/finals/",
+      "destination": "/amo-2026/",
+      "permanent": true
+    }
+  ]
+}
