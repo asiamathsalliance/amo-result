@@ -65,19 +65,19 @@
                 <p class="finals-hero-sub">
                     Results from the AMO 2026 Preliminary Round. 759 contestants from 10 countries competed across four categories. Gold and Silver medalists, together with selected Bronze medalists, advance to the Finals.
                 </p>
-                <ul class="finals-hero-categories">
-                    <li>Normal Kidbee</li>
-                    <li>Open Kidbee</li>
-                    <li>Normal Senior</li>
-                    <li>Open Senior</li>
-                </ul>
-
                 <div class="finals-stats">
                     <div class="finals-stat g"><span class="finals-num">76</span><span class="finals-stat-label">Gold</span></div>
                     <div class="finals-stat s"><span class="finals-num">76</span><span class="finals-stat-label">Silver</span></div>
                     <div class="finals-stat b"><span class="finals-num">73</span><span class="finals-stat-label">Bronze</span></div>
                     <div class="finals-stat"><span class="finals-num">225</span><span class="finals-stat-label">Medals in all</span></div>
                     <div class="finals-stat"><span class="finals-num">194</span><span class="finals-stat-label">Finalists</span></div>
+                </div>
+
+                <div class="finals-hero-actions">
+                    <a href="#cutoffs" class="finals-hero-btn" data-scroll="center">View Cutoff</a>
+                    <a href="#medalists" class="finals-hero-btn" data-scroll="start">View Finalists</a>
+                    <a href="senior-solution/" class="finals-hero-btn">AMO Senior Solution</a>
+                    <a href="kids-bee-solution/" class="finals-hero-btn">AMO Kids Bee Solution</a>
                 </div>
             </div>
         </section>
@@ -158,6 +158,26 @@
         </div>
     </footer>
 
+    <script>
+        document.querySelectorAll('.finals-hero-btn[data-scroll]').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                var id = (link.getAttribute('href') || '').replace('#', '');
+                var target = document.getElementById(id);
+                if (!target) return;
+                event.preventDefault();
+                var mode = link.getAttribute('data-scroll');
+                var top = target.getBoundingClientRect().top + window.scrollY;
+                if (mode === 'center') {
+                    top -= Math.max(16, (window.innerHeight - target.offsetHeight) / 2);
+                } else {
+                    var header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 76;
+                    top -= header + 16;
+                }
+                window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                history.pushState(null, '', '#' + id);
+            });
+        });
+    </script>
     <script src="../js/site-base.js"></script>
     <script src="../js/finals-2026-data.js"></script>
     <script src="../js/finals.js"></script>

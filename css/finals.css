@@ -65,25 +65,38 @@
     color: color-mix(in srgb, var(--color-text-inverse) 82%, transparent);
 }
 
-.finals-hero-categories {
-    margin: 18px auto 0;
+.finals-hero-actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
-    gap: 10px 14px;
-    padding: 0;
-    list-style: none;
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: color-mix(in srgb, var(--color-text-inverse) 70%, transparent);
+    gap: 10px;
+    margin: clamp(28px, 4vw, 40px) auto 0;
 }
 
-.finals-hero-categories li + li::before {
-    content: "·";
-    margin-right: 14px;
-    color: var(--color-secondary);
+.finals-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-height: 42px;
+    padding: 10px 14px;
+    white-space: nowrap;
+    border: 2px solid var(--color-secondary);
+    border-radius: var(--radius-sm);
+    background: var(--color-secondary);
+    color: var(--color-text-inverse);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.finals-hero-btn:hover {
+    background: transparent;
+    color: var(--color-text-inverse);
 }
 
 .finals-stats {
@@ -546,13 +559,15 @@
         padding: 18px 12px;
     }
 
-    .finals-hero-categories {
-        flex-direction: column;
+    .finals-hero-actions {
         gap: 6px;
     }
 
-    .finals-hero-categories li + li::before {
-        content: none;
+    .finals-hero-btn {
+        min-height: 38px;
+        padding: 8px 8px;
+        font-size: 0.58rem;
+        letter-spacing: 0.2px;
     }
 
     .finals-tabs {
